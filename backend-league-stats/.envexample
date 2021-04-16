@@ -1,0 +1,3 @@
+DATABASE_URI=You're MongoDB URI key here
+PORT=You're preferred port number here
+RIOT_API=You're API key here
