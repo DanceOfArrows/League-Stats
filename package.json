@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "install-fullstack": "concurrently \"cd backend-league-stats && npm install\" \"cd frontend-league-stats && npm install\"",
+    "start": "concurrently \"cd backend-league-stats && npm start\" \"cd frontend-league-stats && npm start\""
+  },
+  "dependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
