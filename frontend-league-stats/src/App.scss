@@ -1,0 +1,103 @@
+@font-face {
+    font-family: "Beaufort";
+    src: local("Beaufort"),
+      url("./fonts/Beaufort-Regular.ttf") format("truetype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Beaufort";
+    src: local("Beaufort"),
+      url("./fonts/Beaufort-Bold.ttf") format("truetype");
+    font-weight: bolder;
+}
+
+@font-face {
+    font-family: "Univers 59";
+    src: local("Univers 59"),
+      url("./fonts/Univers 59 - Condensed.ttf") format("truetype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Univers 55";
+    src: local("Univers 55"),
+      url("./fonts/Univers 55.ttf") format("truetype");
+    font-weight: normal;
+}
+
+/* Site wide style */
+* {
+    font-family: 'Beaufort';
+    font-weight: normal;
+    margin: 0;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+/* App container styling */
+body, html, body #league-stats-app {
+    height: 100%;
+
+    #league-stats-app {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+}
+
+/* Background Styling */
+.league-stats-background {
+    background: url("https://cdn.discordapp.com/attachments/472586743686889482/834265829205606470/sb-en.png") no-repeat center center fixed;
+    background-size: cover;
+    position: fixed;
+    min-height: 100vh;
+    min-width: 100%;
+    z-index: -1;
+}
+
+/* Home Layout Styling */
+.league-stats-container {
+    background-color: white;
+    flex: 1 1 auto;
+    position: relative;
+    height: max-content;
+    max-width: 1300px;
+    min-height: 100%;
+    width: 100%;
+}
+
+/* Navbar Styling */
+.league-stats-navbar {
+    height: 112px;
+
+    .league-stats-navbar-top {
+        background-color: red;
+        height: 64px;
+    }
+
+    .league-stats-navbar-bottom {
+        align-items: center;
+        background-color: black;
+        color: white;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        height: 48px;
+
+        .league-stats-navbar-item {
+            height: 45px;
+            line-height: 45px;
+            padding: 0 24px 0 24px;
+        }
+
+        .league-stats-navbar-item-active, .league-stats-navbar-item:hover {
+            background-color: gray;
+            border-bottom: solid 3px red;
+            line-height: 48px;
+        }
+    }
+}

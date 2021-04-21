@@ -1,13 +1,13 @@
 import { baseUrl } from './configureStore';
 
 /* Types */
-const LOAD_CHAMPION_ROTATION = 'lolfinder/freeRotation/LOAD_CHAMPION_ROTATION';
+var LOAD_CHAMPION_ROTATION = 'lolfinder/freeRotation/LOAD_CHAMPION_ROTATION';
 
 /* Action */
 export const setChampionRotation = championRotation => ({ type: LOAD_CHAMPION_ROTATION, championRotation });
 
 /* Fetch functions */
-export const getChampRotation = () => async dispatch => {
+export const getChampionRotation = () => async dispatch => {
     const res = await fetch(`${baseUrl}/championRotation`);
 
     if (res.ok) {
