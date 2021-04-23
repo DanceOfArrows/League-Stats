@@ -1,7 +1,7 @@
 import { baseUrl } from './configureStore';
 
 /* Types */
-var LOAD_CHAMPION_ROTATION = 'lolfinder/freeRotation/LOAD_CHAMPION_ROTATION';
+var LOAD_CHAMPION_ROTATION = 'leaguestats/freeRotation/LOAD_CHAMPION_ROTATION';
 
 /* Action */
 export const setChampionRotation = championRotation => ({ type: LOAD_CHAMPION_ROTATION, championRotation });

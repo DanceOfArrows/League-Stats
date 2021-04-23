@@ -21,6 +21,8 @@ var _config = require("./config");
 
 var _championRotation = _interopRequireDefault(require("./routes/championRotation"));
 
+var _leaderboard = _interopRequireDefault(require("./routes/leaderboard"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
@@ -34,6 +36,7 @@ app.use((0, _cors["default"])({
   origin: true
 }));
 app.use('/championRotation', _championRotation["default"]);
+app.use('/leaderboard', _leaderboard["default"]);
 /* Connect to MongoDB */
 
 _mongoose["default"].connect(_config.database_uri, {

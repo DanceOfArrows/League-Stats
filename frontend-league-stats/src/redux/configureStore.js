@@ -2,11 +2,13 @@ import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
 
 import championRotation from './championRotation';
+import leaderboard from './leaderboard';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const reducer = combineReducers({
-    championRotation
+    championRotation,
+    leaderboard
 });
 
 const configureStore = initialState => {

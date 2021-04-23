@@ -6,6 +6,7 @@ import './App.scss';
 
 const {
   ChampionRotation,
+  Leaderboard,
   Navbar
 } = Components;
 
@@ -18,6 +19,7 @@ function App() {
         <div className='league-stats-page'>
           <Switch>
             <Route exact path='/champion-rotation' component={ChampionRotation} />
+            <Route exact path='/leaderboard' component={Leaderboard} />
           </Switch>
         </div>
       </div>

@@ -21,8 +21,8 @@ const NavBar = () => {
                 <NavLink
                     className='league-stats-navbar-item'
                     activeClassName='league-stats-navbar-item-active'
-                    to='/leaderboards'
-                >Leaderboards</NavLink>
+                    to='/leaderboard'
+                >Leaderboard</NavLink>
             </nav>
         </div>
     );

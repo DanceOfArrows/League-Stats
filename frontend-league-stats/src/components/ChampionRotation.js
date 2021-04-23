@@ -7,8 +7,8 @@ const ChampionRotation = (props) => {
     const { championRotation, getChampionRotation } = props;
 
     useEffect(() => {
-        getChampionRotation();
-    }, [getChampionRotation]);
+        if (!championRotation) getChampionRotation();
+    }, [championRotation, getChampionRotation]);
 
     console.log(championRotation)
 

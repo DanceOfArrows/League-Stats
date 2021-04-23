@@ -7,6 +7,7 @@ import "@babel/polyfill";
 
 import { database_uri } from './config';
 import championRotation from './routes/championRotation';
+import leaderboard from './routes/leaderboard';
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors({ origin: true }));
 app.use('/championRotation', championRotation);
+app.use('/leaderboard', leaderboard);
 
 /* Connect to MongoDB */
 mongoose.connect(database_uri, {
