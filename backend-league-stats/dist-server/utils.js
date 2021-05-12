@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.timeCheck = exports.fetchHandler = exports.convertChampionIds = exports.asyncHandler = void 0;
+exports.timeCheck = exports.queueIdInfo = exports.fetchHandler = exports.convertChampionIds = exports.asyncHandler = void 0;
 
 var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
@@ -17,7 +17,339 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+var queueIdInfo = [{
+  queueId: 0,
+  map: "Custom",
+  description: null
+}, {
+  queueId: 2,
+  map: "Summoner's Rift",
+  description: "5v5 Blind Pick"
+}, {
+  queueId: 4,
+  map: "Summoner's Rift",
+  description: "5v5 Ranked Solo"
+}, {
+  queueId: 6,
+  map: "Summoner's Rift",
+  description: "5v5 Ranked Premade"
+}, {
+  queueId: 7,
+  map: "Summoner's Rift",
+  description: "Co-op vs AI"
+}, {
+  queueId: 8,
+  map: "Twisted Treeline",
+  description: "3v3 Normal"
+}, {
+  queueId: 9,
+  map: "Twisted Treeline",
+  description: "3v3 Ranked Flex"
+}, {
+  queueId: 14,
+  map: "Summoner's Rift",
+  description: "5v5 Draft Pick"
+}, {
+  queueId: 16,
+  map: "Crystal Scar",
+  description: "5v5 Dominion Blind Pick"
+}, {
+  queueId: 17,
+  map: "Crystal Scar",
+  description: "5v5 Dominion Draft Pick"
+}, {
+  queueId: 25,
+  map: "Crystal Scar",
+  description: "Dominion Co-op vs AI"
+}, {
+  queueId: 31,
+  map: "Summoner's Rift",
+  description: "Co-op vs AI Intro Bot"
+}, {
+  queueId: 32,
+  map: "Summoner's Rift",
+  description: "Co-op vs AI Beginner Bot"
+}, {
+  queueId: 33,
+  map: "Summoner's Rift",
+  description: "Co-op vs AI Intermediate Bot"
+}, {
+  queueId: 41,
+  map: "Twisted Treeline",
+  description: "3v3 Ranked Team"
+}, {
+  queueId: 42,
+  map: "Summoner's Rift",
+  description: "5v5 Ranked Team"
+}, {
+  queueId: 52,
+  map: "Twisted Treeline",
+  description: "Co-op vs AI"
+}, {
+  queueId: 61,
+  map: "Summoner's Rift",
+  description: "5v5 Team Builder"
+}, {
+  queueId: 65,
+  map: "Howling Abyss",
+  description: "5v5 ARAM"
+}, {
+  queueId: 67,
+  map: "Howling Abyss",
+  description: "ARAM Co-op vs AI"
+}, {
+  queueId: 70,
+  map: "Summoner's Rift",
+  description: "One for All"
+}, {
+  queueId: 72,
+  map: "Howling Abyss",
+  description: "1v1 Snowdown Showdown"
+}, {
+  queueId: 73,
+  map: "Howling Abyss",
+  description: "2v2 Snowdown Showdown"
+}, {
+  queueId: 75,
+  map: "Summoner's Rift",
+  description: "6v6 Hexakill"
+}, {
+  queueId: 76,
+  map: "Summoner's Rift",
+  description: "Ultra Rapid Fire"
+}, {
+  queueId: 78,
+  map: "Howling Abyss",
+  description: "One For All: Mirror Mode"
+}, {
+  queueId: 83,
+  map: "Summoner's Rift",
+  description: "Co-op vs AI Ultra Rapid Fire"
+}, {
+  queueId: 91,
+  map: "Summoner's Rift",
+  description: "Doom Bots Rank 1"
+}, {
+  queueId: 92,
+  map: "Summoner's Rift",
+  description: "Doom Bots Rank 2"
+}, {
+  queueId: 93,
+  map: "Summoner's Rift",
+  description: "Doom Bots Rank 5"
+}, {
+  queueId: 96,
+  map: "Crystal Scar",
+  description: "Ascension"
+}, {
+  queueId: 98,
+  map: "Twisted Treeline",
+  description: "6v6 Hexakill"
+}, {
+  queueId: 100,
+  map: "Butcher's Bridge",
+  description: "5v5 ARAM"
+}, {
+  queueId: 300,
+  map: "Howling Abyss",
+  description: "Legend of the Poro King"
+}, {
+  queueId: 310,
+  map: "Summoner's Rift",
+  description: "Nemesis"
+}, {
+  queueId: 313,
+  map: "Summoner's Rift",
+  description: "Black Market Brawlers"
+}, {
+  queueId: 315,
+  map: "Summoner's Rift",
+  description: "Nexus Siege"
+}, {
+  queueId: 317,
+  map: "Crystal Scar",
+  description: "Definitely Not Dominion"
+}, {
+  queueId: 318,
+  map: "Summoner's Rift",
+  description: "ARURF"
+}, {
+  queueId: 325,
+  map: "Summoner's Rift",
+  description: "All Random"
+}, {
+  queueId: 400,
+  map: "Summoner's Rift",
+  description: "5v5 Draft Pick"
+}, {
+  queueId: 410,
+  map: "Summoner's Rift",
+  description: "5v5 Ranked Dynamic"
+}, {
+  queueId: 420,
+  map: "Summoner's Rift",
+  description: "5v5 Ranked Solo"
+}, {
+  queueId: 430,
+  map: "Summoner's Rift",
+  description: "5v5 Blind Pick"
+}, {
+  queueId: 440,
+  map: "Summoner's Rift",
+  description: "5v5 Ranked Flex"
+}, {
+  queueId: 450,
+  map: "Howling Abyss",
+  description: "5v5 ARAM"
+}, {
+  queueId: 460,
+  map: "Twisted Treeline",
+  description: "3v3 Blind Pick"
+}, {
+  queueId: 470,
+  map: "Twisted Treeline",
+  description: "3v3 Ranked Flex"
+}, {
+  queueId: 600,
+  map: "Summoner's Rift",
+  description: "Blood Hunt Assassin"
+}, {
+  queueId: 610,
+  map: "Cosmic Ruins",
+  description: "Dark Star: Singularity"
+}, {
+  queueId: 700,
+  map: "Summoner's Rift",
+  description: "Clash"
+}, {
+  queueId: 800,
+  map: "Twisted Treeline",
+  description: "Co-op vs. AI Intermediate Bot"
+}, {
+  queueId: 810,
+  map: "Twisted Treeline",
+  description: "Co-op vs. AI Intro Bot"
+}, {
+  queueId: 820,
+  map: "Twisted Treeline",
+  description: "Co-op vs. AI Beginner Bot"
+}, {
+  queueId: 830,
+  map: "Summoner's Rift",
+  description: "Co-op vs. AI Intro Bot"
+}, {
+  queueId: 840,
+  map: "Summoner's Rift",
+  description: "Co-op vs. AI Beginner Bot"
+}, {
+  queueId: 850,
+  map: "Summoner's Rift",
+  description: "Co-op vs. AI Intermediate Bot"
+}, {
+  queueId: 900,
+  map: "Summoner's Rift",
+  description: "URF"
+}, {
+  queueId: 910,
+  map: "Crystal Scar",
+  description: "Ascension"
+}, {
+  queueId: 920,
+  map: "Howling Abyss",
+  description: "Legend of the Poro King"
+}, {
+  queueId: 940,
+  map: "Summoner's Rift",
+  description: "Nexus Siege"
+}, {
+  queueId: 950,
+  map: "Summoner's Rift",
+  description: "Doom Bots Voting"
+}, {
+  queueId: 960,
+  map: "Summoner's Rift",
+  description: "Doom Bots Standard"
+}, {
+  queueId: 980,
+  map: "Valoran City Park",
+  description: "Star Guardian Invasion: Normal"
+}, {
+  queueId: 990,
+  map: "Valoran City Park",
+  description: "Star Guardian Invasion: Onslaught"
+}, {
+  queueId: 1000,
+  map: "Overcharge",
+  description: "PROJECT: Hunters"
+}, {
+  queueId: 1010,
+  map: "Summoner's Rift",
+  description: "Snow ARURF"
+}, {
+  queueId: 1020,
+  map: "Summoner's Rift",
+  description: "One for All"
+}, {
+  queueId: 1030,
+  map: "Crash Site",
+  description: "Odyssey Extraction: Intro"
+}, {
+  queueId: 1040,
+  map: "Crash Site",
+  description: "Odyssey Extraction: Cadet"
+}, {
+  queueId: 1050,
+  map: "Crash Site",
+  description: "Odyssey Extraction: Crewmember"
+}, {
+  queueId: 1060,
+  map: "Crash Site",
+  description: "Odyssey Extraction: Captain"
+}, {
+  queueId: 1070,
+  map: "Crash Site",
+  description: "Odyssey Extraction: Onslaught"
+}, {
+  queueId: 1090,
+  map: "Convergence",
+  description: "Teamfight Tactics"
+}, {
+  queueId: 1100,
+  map: "Convergence",
+  description: "Ranked Teamfight Tactics"
+}, {
+  queueId: 1110,
+  map: "Convergence",
+  description: "Teamfight Tactics Tutorial"
+}, {
+  queueId: 1111,
+  map: "Convergence",
+  description: "Teamfight Tactics test"
+}, {
+  queueId: 1200,
+  map: "Nexus Blitz",
+  description: "Nexus Blitz"
+}, {
+  queueId: 1300,
+  map: "Nexus Blitz",
+  description: "Nexus Blitz"
+}, {
+  queueId: 2000,
+  map: "Summoner's Rift",
+  description: "Tutorial 1"
+}, {
+  queueId: 2010,
+  map: "Summoner's Rift",
+  description: "Tutorial 2"
+}, {
+  queueId: 2020,
+  map: "Summoner's Rift",
+  description: "Tutorial 3"
+}];
 /* Middleware to handle exceptions */
+
+exports.queueIdInfo = queueIdInfo;
+
 var asyncHandler = function asyncHandler(handler) {
   return function (req, res, next) {
     return handler(req, res, next)["catch"](next);
@@ -99,43 +431,39 @@ var convertChampionIds = /*#__PURE__*/function () {
             return _context2.abrupt("return", champions);
 
           case 6:
-            ;
-            /* Check if a single number sent to be converted then convert */
-
-            if (!(typeof championIds === 'number')) {
-              _context2.next = 15;
+            if (!(typeof championIds === "number")) {
+              _context2.next = 14;
               break;
             }
 
-            _context2.next = 10;
+            _context2.next = 9;
             return _champion["default"].findOne({
               championId: championIds
             }).lean();
 
-          case 10:
+          case 9:
             champion = _context2.sent;
 
             if (champion) {
-              _context2.next = 13;
+              _context2.next = 12;
               break;
             }
 
             throw missingChampionErr(championIds);
 
-          case 13:
+          case 12:
             championName = champion.championName, displayName = champion.displayName;
             return _context2.abrupt("return", {
               championName: championName,
               displayName: displayName
             });
 
-          case 15:
-            ;
-            _context2.next = 24;
+          case 14:
+            _context2.next = 22;
             break;
 
-          case 18:
-            _context2.prev = 18;
+          case 16:
+            _context2.prev = 16;
             _context2.t0 = _context2["catch"](0);
 
             /* Catch any other errors that might occur */
@@ -144,12 +472,12 @@ var convertChampionIds = /*#__PURE__*/function () {
             convertErr.title = "Champion ID Convert Error";
             throw convertErr;
 
-          case 24:
+          case 22:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 18]]);
+    }, _callee2, null, [[0, 16]]);
   }));
 
   return function convertChampionIds(_x) {
@@ -171,7 +499,7 @@ var fetchHandler = /*#__PURE__*/function () {
             _context3.next = 2;
             return (0, _nodeFetch["default"])("https://na1.api.riotgames.com/".concat(path), {
               headers: {
-                'X-Riot-Token': _config.riotKey
+                "X-Riot-Token": _config.riotKey
               }
             });
 
@@ -197,9 +525,6 @@ var fetchHandler = /*#__PURE__*/function () {
             throw fetchErr;
 
           case 14:
-            ;
-
-          case 15:
           case "end":
             return _context3.stop();
         }

@@ -23,10 +23,12 @@ var _championRotation = _interopRequireDefault(require("./routes/championRotatio
 
 var _leaderboard = _interopRequireDefault(require("./routes/leaderboard"));
 
+var _summoner = _interopRequireDefault(require("./routes/summoner"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var app = (0, _express["default"])();
-app.use((0, _morgan["default"])('dev'));
+app.use((0, _morgan["default"])("dev"));
 app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: false
@@ -35,8 +37,9 @@ app.use((0, _cookieParser["default"])());
 app.use((0, _cors["default"])({
   origin: true
 }));
-app.use('/championRotation', _championRotation["default"]);
-app.use('/leaderboard', _leaderboard["default"]);
+app.use("/championRotation", _championRotation["default"]);
+app.use("/leaderboard", _leaderboard["default"]);
+app.use("/summoner", _summoner["default"]);
 /* Connect to MongoDB */
 
 _mongoose["default"].connect(_config.database_uri, {
@@ -49,8 +52,8 @@ _mongoose["default"].connect(_config.database_uri, {
 /* Check if server is running */
 
 
-app.get('/', function (req, res) {
-  res.json('Server is running!');
+app.get("/", function (req, res) {
+  res.json("Server is running!");
 });
 /* Error Handlers */
 
