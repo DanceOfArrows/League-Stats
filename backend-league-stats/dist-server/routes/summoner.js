@@ -37,7 +37,7 @@ var router = _express["default"].Router();
 
 router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(req, res, next) {
-    var summonerName, storedSummoner, isUpdateRequired, summonerData, accountId, name, profileIconId, puuid, summonerLevel, summonerMatches, matches, matchDataArr, newSummoner;
+    var summonerName, storedSummoner, isUpdateRequired, summonerData, accountId, id, name, profileIconId, summonerLevel, summonerMatches, matches, matchDataArr, summonerRanks, ranks, newSummoner;
     return regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -54,7 +54,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             isUpdateRequired = storedSummoner ? (0, _utils.timeCheck)(storedSummoner.lastUpdated) : true;
 
             if (!isUpdateRequired) {
-              _context2.next = 32;
+              _context2.next = 36;
               break;
             }
 
@@ -63,7 +63,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
 
           case 9:
             summonerData = _context2.sent;
-            accountId = summonerData.accountId, name = summonerData.name, profileIconId = summonerData.profileIconId, puuid = summonerData.puuid, summonerLevel = summonerData.summonerLevel;
+            accountId = summonerData.accountId, id = summonerData.id, name = summonerData.name, profileIconId = summonerData.profileIconId, summonerLevel = summonerData.summonerLevel;
             /* Gets 10 recent matches.  This is due to API limitations (can go to 100, but rate limited to 20 per 1 sec and 100 per 2 min) */
 
             _context2.next = 13;
@@ -72,7 +72,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
           case 13:
             summonerMatches = _context2.sent;
             matches = summonerMatches.matches;
-            /* Get match data for user */
+            /* Get match data for summoner */
 
             _context2.next = 17;
             return Promise.all(matches.map( /*#__PURE__*/function () {
@@ -154,7 +154,8 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
                             map: map,
                             bansUnique: bansUnique,
                             matchParticipantInfo: participantInfoArr,
-                            didWin: didWin
+                            didWin: didWin,
+                            timestamp: timestamp
                           }
                         });
                         _context.next = 18;
@@ -181,9 +182,31 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
 
           case 17:
             matchDataArr = _context2.sent;
+            _context2.next = 20;
+            return (0, _utils.fetchHandler)("lol/league/v4/entries/by-summoner/".concat(id));
+
+          case 20:
+            summonerRanks = _context2.sent;
+            ranks = summonerRanks.map(function (rankType) {
+              var queueType = rankType.queueType,
+                  tier = rankType.tier,
+                  rank = rankType.rank,
+                  leaguePoints = rankType.leaguePoints,
+                  wins = rankType.wins,
+                  losses = rankType.losses;
+              return {
+                queueType: queueType,
+                tier: tier,
+                rank: rank,
+                leaguePoints: leaguePoints,
+                wins: wins,
+                losses: losses
+              };
+            });
+            /* If there isn't a stored summoner, create one.  Else we update */
 
             if (storedSummoner) {
-              _context2.next = 25;
+              _context2.next = 29;
               break;
             }
 
@@ -193,59 +216,60 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
                 accountId: accountId,
                 name: name,
                 profileIconId: profileIconId,
-                puuid: puuid,
                 summonerLevel: summonerLevel,
-                matches: matchDataArr
+                matches: matchDataArr,
+                ranks: ranks
               },
               lastUpdated: new Date()
             });
-            _context2.next = 22;
+            _context2.next = 26;
             return newSummoner.save();
 
-          case 22:
+          case 26:
             res.json(newSummoner.data);
-            _context2.next = 30;
+            _context2.next = 34;
             break;
-
-          case 25:
-            storedSummoner.data = {
-              accountId: accountId,
-              name: name,
-              profileIconId: profileIconId,
-              puuid: puuid,
-              summonerLevel: summonerLevel,
-              matches: matchDataArr
-            };
-            storedSummoner.lastUpdated = new Date();
-            _context2.next = 29;
-            return storedSummoner.save();
 
           case 29:
-            res.json(storedSummoner.data);
-
-          case 30:
+            storedSummoner.data = {
+              accountId: accountId,
+              id: id,
+              name: name,
+              profileIconId: profileIconId,
+              summonerLevel: summonerLevel,
+              matches: matchDataArr,
+              ranks: ranks
+            };
+            storedSummoner.lastUpdated = new Date();
             _context2.next = 33;
-            break;
-
-          case 32:
-            res.json(storedSummoner.data);
+            return storedSummoner.save();
 
           case 33:
-            _context2.next = 39;
+            res.json(storedSummoner.data);
+
+          case 34:
+            _context2.next = 37;
             break;
 
-          case 35:
-            _context2.prev = 35;
+          case 36:
+            res.json(storedSummoner.data);
+
+          case 37:
+            _context2.next = 43;
+            break;
+
+          case 39:
+            _context2.prev = 39;
             _context2.t0 = _context2["catch"](0);
             console.error(_context2.t0);
             next(_context2.t0);
 
-          case 39:
+          case 43:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 35]]);
+    }, _callee2, null, [[0, 39]]);
   }));
 
   return function (_x, _x2, _x3) {

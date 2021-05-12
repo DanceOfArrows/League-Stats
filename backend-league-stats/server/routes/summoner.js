@@ -28,7 +28,7 @@ router.get(
         const summonerData = await fetchHandler(
           `lol/summoner/v4/summoners/by-name/${summonerName}`
         );
-        const { accountId, name, profileIconId, puuid, summonerLevel } =
+        const { accountId, id, name, profileIconId, summonerLevel } =
           summonerData;
 
         /* Gets 10 recent matches.  This is due to API limitations (can go to 100, but rate limited to 20 per 1 sec and 100 per 2 min) */
@@ -36,7 +36,8 @@ router.get(
           `lol/match/v4/matchlists/by-account/${accountId}?beginIndex=0&endIndex=10`
         );
         const { matches } = summonerMatches;
-        /* Get match data for user */
+
+        /* Get match data for summoner */
         const matchDataArr = await Promise.all(
           matches.map(async (match) => {
             const { gameId: matchId, timestamp } = match;
@@ -102,6 +103,7 @@ router.get(
                   bansUnique,
                   matchParticipantInfo: participantInfoArr,
                   didWin,
+                  timestamp,
                 },
               });
               await newMatch.save();
@@ -113,6 +115,24 @@ router.get(
           })
         );
 
+        /* Get rank for summoner */
+        const summonerRanks = await fetchHandler(
+          `lol/league/v4/entries/by-summoner/${id}`
+        );
+        const ranks = summonerRanks.map((rankType) => {
+          const { queueType, tier, rank, leaguePoints, wins, losses } =
+            rankType;
+
+          return {
+            queueType,
+            tier,
+            rank,
+            leaguePoints,
+            wins,
+            losses,
+          };
+        });
+
         /* If there isn't a stored summoner, create one.  Else we update */
         if (!storedSummoner) {
           const newSummoner = new Summoner({
@@ -121,9 +141,9 @@ router.get(
               accountId,
               name,
               profileIconId,
-              puuid,
               summonerLevel,
               matches: matchDataArr,
+              ranks,
             },
             lastUpdated: new Date(),
           });
@@ -133,11 +153,12 @@ router.get(
         } else {
           storedSummoner.data = {
             accountId,
+            id,
             name,
             profileIconId,
-            puuid,
             summonerLevel,
             matches: matchDataArr,
+            ranks,
           };
           storedSummoner.lastUpdated = new Date();
           await storedSummoner.save();
