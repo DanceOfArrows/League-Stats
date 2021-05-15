@@ -1,103 +1,154 @@
 @font-face {
-    font-family: "Beaufort";
-    src: local("Beaufort"),
-      url("./fonts/Beaufort-Regular.ttf") format("truetype");
-    font-weight: normal;
+  font-family: "Beaufort";
+  src: local("Beaufort"), url("./fonts/Beaufort-Regular.ttf") format("truetype");
+  font-weight: normal;
 }
 
 @font-face {
-    font-family: "Beaufort";
-    src: local("Beaufort"),
-      url("./fonts/Beaufort-Bold.ttf") format("truetype");
-    font-weight: bolder;
+  font-family: "Beaufort";
+  src: local("Beaufort"), url("./fonts/Beaufort-Bold.ttf") format("truetype");
+  font-weight: bolder;
 }
 
 @font-face {
-    font-family: "Univers 59";
-    src: local("Univers 59"),
-      url("./fonts/Univers 59 - Condensed.ttf") format("truetype");
-    font-weight: normal;
+  font-family: "Univers 59";
+  src: local("Univers 59"),
+    url("./fonts/Univers 59 - Condensed.ttf") format("truetype");
+  font-weight: normal;
 }
 
 @font-face {
-    font-family: "Univers 55";
-    src: local("Univers 55"),
-      url("./fonts/Univers 55.ttf") format("truetype");
-    font-weight: normal;
+  font-family: "Univers 55";
+  src: local("Univers 55"), url("./fonts/Univers 55.ttf") format("truetype");
+  font-weight: normal;
 }
 
 /* Site wide style */
 * {
-    font-family: 'Beaufort';
-    font-weight: normal;
-    margin: 0;
+  font-family: "Beaufort";
+  font-weight: normal;
+  margin: 0;
 }
 
 a {
-    color: white;
-    text-decoration: none;
+  color: white;
+  text-decoration: none;
 }
 
 /* App container styling */
-body, html, body #league-stats-app {
-    height: 100%;
-
-    #league-stats-app {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-    }
+body,
+html,
+body #league-stats-app {
+  height: 100%;
 }
 
 /* Background Styling */
 .league-stats-background {
-    background: url("https://cdn.discordapp.com/attachments/472586743686889482/834265829205606470/sb-en.png") no-repeat center center fixed;
-    background-size: cover;
-    position: fixed;
-    min-height: 100vh;
-    min-width: 100%;
-    z-index: -1;
+  background: url("https://cdn.discordapp.com/attachments/472586743686889482/834265829205606470/sb-en.png")
+    no-repeat center center fixed;
+  background-size: cover;
+  position: fixed;
+  min-height: 100vh;
+  min-width: 100%;
+  z-index: -1;
 }
 
-/* Home Layout Styling */
-.league-stats-container {
-    background-color: white;
-    flex: 1 1 auto;
-    position: relative;
-    height: max-content;
-    max-width: 1300px;
-    min-height: 100%;
+.league-stats-navbar-top {
+  height: 6vh;
+  position: fixed;
+  width: 100%;
+
+  nav {
+    background-color: red;
+    display: grid;
+    grid-template: 1fr / 240px 1fr;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 1344px;
     width: 100%;
+
+    .league-stats-navbar-site-logo {
+      grid-column: 1 / 2;
+    }
+
+    .league-stats-navbar-site-name {
+      grid-column: 2 / 3;
+    }
+  }
 }
 
-/* Navbar Styling */
-.league-stats-navbar {
-    height: 112px;
+.league-stats-container {
+  margin: 0 auto;
+  max-width: 1344px;
+  width: 100%;
 
-    .league-stats-navbar-top {
-        background-color: red;
-        height: 64px;
+  .league-stats-navbar-side {
+    background-color: black;
+    color: white;
+    display: grid;
+    grid-template: 1fr 25% 25% / 1fr;
+    height: 94vh;
+    margin-right: auto;
+    position: fixed;
+    top: 6vh;
+    width: 240px;
+
+    nav,
+    .league-stats-navbar-side-social {
+      border-bottom: solid 1px white;
     }
 
-    .league-stats-navbar-bottom {
-        align-items: center;
-        background-color: black;
-        color: white;
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-start;
-        height: 48px;
-
-        .league-stats-navbar-item {
-            height: 45px;
-            line-height: 45px;
-            padding: 0 24px 0 24px;
-        }
-
-        .league-stats-navbar-item-active, .league-stats-navbar-item:hover {
-            background-color: gray;
-            border-bottom: solid 3px red;
-            line-height: 48px;
-        }
+    nav {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 1em 2em;
     }
+
+    .league-stats-navbar-side-social {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      margin-top: auto;
+      padding: 1em 2em;
+      position: relative;
+
+      a,
+      .iconify {
+        height: 32px;
+        width: 32px;
+      }
+
+      &:before {
+        content: "";
+        position: absolute;
+        left: 12.5%;
+        top: 0;
+        height: 1px;
+        width: 75%;
+        border-top: 1px solid white;
+      }
+    }
+
+    .league-stats-navbar-side-footer {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      padding: 1em 2em;
+    }
+  }
+
+  .league-stats-page {
+    background-color: blue;
+    height: 100%;
+    float: right;
+    margin-top: 6vh;
+    position: relative;
+    width: calc(100% - 240px);
+    z-index: -1;
+  }
+}
+
+.league-stats-test-long-div {
+  height: 2600px;
 }

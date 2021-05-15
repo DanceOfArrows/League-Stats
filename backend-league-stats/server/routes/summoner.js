@@ -18,6 +18,7 @@ router.get(
   asyncHandler(async (req, res, next) => {
     try {
       const { summonerName } = req.params;
+      const summonerNameEncoded = encodeURIComponent(summonerName);
       let storedSummoner = await Summoner.findOne({ name: summonerName });
       const isUpdateRequired = storedSummoner
         ? timeCheck(storedSummoner.lastUpdated)
@@ -26,7 +27,7 @@ router.get(
       if (isUpdateRequired) {
         /* Get summoner data using their name */
         const summonerData = await fetchHandler(
-          `lol/summoner/v4/summoners/by-name/${summonerName}`
+          `lol/summoner/v4/summoners/by-name/${summonerNameEncoded}`
         );
         const { accountId, id, name, profileIconId, summonerLevel } =
           summonerData;
@@ -68,25 +69,41 @@ router.get(
                 teams[0].bans.length > 0 && teams[1].bans.length > 0
                   ? [...teams[0].bans, ...teams[1].bans]
                   : [];
-              const bansFormatted =
-                bans.length > 0 ? bans.map((ban) => ban.championId) : [];
-              const bansUnique =
-                bans.length > 0
-                  ? convertChampionIds([...new Set(bansFormatted)])
-                  : [];
 
               /* Gets relevant match data and summoner name of each player */
-              const participantInfoArr = participants.map((participant) => {
-                const { participantId, championId, spell1Id, spell2Id, stats } =
-                  participant;
-                const {
-                  player: { summonerName },
-                } = participantIdentities.find(
-                  (ele) => ele.participantId === participantId
-                );
+              const participantInfoArr = await Promise.all(
+                participants.map(async (participant) => {
+                  const {
+                    participantId,
+                    championId,
+                    spell1Id,
+                    spell2Id,
+                    stats,
+                  } = participant;
+                  const {
+                    player: { summonerName },
+                  } = participantIdentities.find(
+                    (ele) => ele.participantId === participantId
+                  );
+                  const ban =
+                    bans.length > 0
+                      ? bans.find((ele) => ele.pickTurn === participantId)
+                      : null;
+                  const bannedChamp =
+                    ban != null
+                      ? await convertChampionIds(ban.championId)
+                      : null;
 
-                return { championId, spell1Id, spell2Id, stats, summonerName };
-              });
+                  return {
+                    championId,
+                    spell1Id,
+                    spell2Id,
+                    stats,
+                    summonerName,
+                    bannedChamp,
+                  };
+                })
+              );
 
               /* Get boolean for whether user won the match */
               const didWin = participantInfoArr.find(
@@ -100,7 +117,6 @@ router.get(
                   gameDuration,
                   description,
                   map,
-                  bansUnique,
                   matchParticipantInfo: participantInfoArr,
                   didWin,
                   timestamp,

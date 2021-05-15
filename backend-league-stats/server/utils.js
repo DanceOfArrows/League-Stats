@@ -432,11 +432,14 @@ const missingChampionErr = (championId) => {
 
 /* Convert championId(s) to championName(s) */
 const convertChampionIds = async (championIds) => {
+  if (championIds === -1) return { championName: null, displayName: null };
   try {
     /* Check if an array was sent to be converted then convert */
     if (Array.isArray(championIds)) {
       const champions = await Promise.all(
         championIds.map(async (championId) => {
+          if (championId === -1)
+            return { championName: null, displayName: null };
           const champion = await Champion.findOne({ championId }).lean();
           if (!champion) throw missingChampionErr(championId);
 

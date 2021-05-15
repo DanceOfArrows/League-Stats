@@ -376,14 +376,25 @@ var convertChampionIds = /*#__PURE__*/function () {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.prev = 0;
-
-            if (!Array.isArray(championIds)) {
-              _context2.next = 6;
+            if (!(championIds === -1)) {
+              _context2.next = 2;
               break;
             }
 
-            _context2.next = 4;
+            return _context2.abrupt("return", {
+              championName: null,
+              displayName: null
+            });
+
+          case 2:
+            _context2.prev = 2;
+
+            if (!Array.isArray(championIds)) {
+              _context2.next = 8;
+              break;
+            }
+
+            _context2.next = 6;
             return Promise.all(championIds.map( /*#__PURE__*/function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(championId) {
                 var champion, championName, displayName;
@@ -391,29 +402,40 @@ var convertChampionIds = /*#__PURE__*/function () {
                   while (1) {
                     switch (_context.prev = _context.next) {
                       case 0:
-                        _context.next = 2;
+                        if (!(championId === -1)) {
+                          _context.next = 2;
+                          break;
+                        }
+
+                        return _context.abrupt("return", {
+                          championName: null,
+                          displayName: null
+                        });
+
+                      case 2:
+                        _context.next = 4;
                         return _champion["default"].findOne({
                           championId: championId
                         }).lean();
 
-                      case 2:
+                      case 4:
                         champion = _context.sent;
 
                         if (champion) {
-                          _context.next = 5;
+                          _context.next = 7;
                           break;
                         }
 
                         throw missingChampionErr(championId);
 
-                      case 5:
+                      case 7:
                         championName = champion.championName, displayName = champion.displayName;
                         return _context.abrupt("return", {
                           championName: championName,
                           displayName: displayName
                         });
 
-                      case 7:
+                      case 9:
                       case "end":
                         return _context.stop();
                     }
@@ -426,45 +448,45 @@ var convertChampionIds = /*#__PURE__*/function () {
               };
             }()));
 
-          case 4:
+          case 6:
             champions = _context2.sent;
             return _context2.abrupt("return", champions);
 
-          case 6:
+          case 8:
             if (!(typeof championIds === "number")) {
-              _context2.next = 14;
+              _context2.next = 16;
               break;
             }
 
-            _context2.next = 9;
+            _context2.next = 11;
             return _champion["default"].findOne({
               championId: championIds
             }).lean();
 
-          case 9:
+          case 11:
             champion = _context2.sent;
 
             if (champion) {
-              _context2.next = 12;
+              _context2.next = 14;
               break;
             }
 
             throw missingChampionErr(championIds);
 
-          case 12:
+          case 14:
             championName = champion.championName, displayName = champion.displayName;
             return _context2.abrupt("return", {
               championName: championName,
               displayName: displayName
             });
 
-          case 14:
-            _context2.next = 22;
+          case 16:
+            _context2.next = 24;
             break;
 
-          case 16:
-            _context2.prev = 16;
-            _context2.t0 = _context2["catch"](0);
+          case 18:
+            _context2.prev = 18;
+            _context2.t0 = _context2["catch"](2);
 
             /* Catch any other errors that might occur */
             convertErr = new Error(_context2.t0.message);
@@ -472,12 +494,12 @@ var convertChampionIds = /*#__PURE__*/function () {
             convertErr.title = "Champion ID Convert Error";
             throw convertErr;
 
-          case 22:
+          case 24:
           case "end":
             return _context2.stop();
         }
       }
-    }, _callee2, null, [[0, 16]]);
+    }, _callee2, null, [[2, 18]]);
   }));
 
   return function convertChampionIds(_x) {

@@ -1,41 +1,34 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
 
-import { getChampionRotation } from '../redux/championRotation';
+import { getChampionRotation } from "../redux/championRotation";
 
 const ChampionRotation = (props) => {
-    const { championRotation, getChampionRotation } = props;
+  const { championRotation, getChampionRotation } = props;
 
-    useEffect(() => {
-        if (!championRotation) getChampionRotation();
-    }, [championRotation, getChampionRotation]);
+  useEffect(() => {
+    if (!championRotation) getChampionRotation();
+  }, [championRotation, getChampionRotation]);
 
-    console.log(championRotation)
+  console.log(championRotation);
 
-    return (
-        <>
-            <div className='league-stats-test-long-div'>
-
-            </div>
-        </>
-    );
-}
-
-const mapStateToProps = state => {
-    return {
-        championRotation: state.championRotation.championRotation,
-    };
+  return (
+    <>
+      <div className="league-stats-test-long-div">Test</div>
+    </>
+  );
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getChampionRotation: () => dispatch(getChampionRotation()),
-    };
+const mapStateToProps = (state) => {
+  return {
+    championRotation: state.championRotation.championRotation,
+  };
 };
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(
-    ChampionRotation
-);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getChampionRotation: () => dispatch(getChampionRotation()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChampionRotation);

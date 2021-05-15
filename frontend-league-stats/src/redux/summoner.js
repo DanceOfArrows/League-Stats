@@ -8,8 +8,8 @@ export const setSummoner = (summoner) => ({ type: LOAD_SUMMONER, summoner });
 
 /* Fetch functions */
 export const getSummoner = (summonerName) => async (dispatch) => {
-  const summonerNameDecoded = decodeURI(summonerName);
-  const res = await fetch(`${baseUrl}/summoner/${summonerNameDecoded}`);
+  const summonerNameEncoded = encodeURIComponent(summonerName);
+  const res = await fetch(`${baseUrl}/summoner/${summonerNameEncoded}`);
 
   if (res.ok) {
     const summoner = await res.json();
