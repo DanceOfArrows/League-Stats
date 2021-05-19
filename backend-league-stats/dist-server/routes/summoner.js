@@ -37,7 +37,7 @@ var router = _express["default"].Router();
 
 router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
-    var summonerName, summonerNameEncoded, storedSummoner, isUpdateRequired, summonerData, accountId, id, name, profileIconId, summonerLevel, summonerMatches, matches, matchDataArr, summonerRanks, ranks, newSummoner;
+    var summonerName, summonerNameEncoded, storedSummoner, isUpdateRequired, summonerData, accountId, id, name, profileIconId, summonerLevel, summonerMatches, matches, matchDataArr, summonerRanks, ranks, newSummonerData, newSummoner;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -55,7 +55,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             isUpdateRequired = storedSummoner ? (0, _utils.timeCheck)(storedSummoner.lastUpdated) : true;
 
             if (!isUpdateRequired) {
-              _context3.next = 37;
+              _context3.next = 38;
               break;
             }
 
@@ -241,12 +241,12 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             /* If there isn't a stored summoner, create one.  Else we update */
 
             if (storedSummoner) {
-              _context3.next = 30;
+              _context3.next = 31;
               break;
             }
 
-            newSummoner = new _summoner["default"]({
-              name: name,
+            newSummonerData = {
+              name: name.toLowerCase(),
               data: {
                 accountId: accountId,
                 name: name,
@@ -256,16 +256,17 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
                 ranks: ranks
               },
               lastUpdated: new Date()
-            });
+            };
             _context3.next = 27;
-            return newSummoner.save();
+            return _summoner["default"].create(newSummonerData);
 
           case 27:
+            newSummoner = _context3.sent;
             res.json(newSummoner.data);
-            _context3.next = 35;
+            _context3.next = 36;
             break;
 
-          case 30:
+          case 31:
             storedSummoner.data = {
               accountId: accountId,
               id: id,
@@ -276,35 +277,35 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
               ranks: ranks
             };
             storedSummoner.lastUpdated = new Date();
-            _context3.next = 34;
+            _context3.next = 35;
             return storedSummoner.save();
 
-          case 34:
-            res.json(storedSummoner.data);
-
           case 35:
-            _context3.next = 38;
-            break;
-
-          case 37:
             res.json(storedSummoner.data);
+
+          case 36:
+            _context3.next = 39;
+            break;
 
           case 38:
-            _context3.next = 44;
+            res.json(storedSummoner.data);
+
+          case 39:
+            _context3.next = 45;
             break;
 
-          case 40:
-            _context3.prev = 40;
+          case 41:
+            _context3.prev = 41;
             _context3.t0 = _context3["catch"](0);
             console.error(_context3.t0);
             next(_context3.t0);
 
-          case 44:
+          case 45:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 40]]);
+    }, _callee3, null, [[0, 41]]);
   }));
 
   return function (_x, _x2, _x3) {

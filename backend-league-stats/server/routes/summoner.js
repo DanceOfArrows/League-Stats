@@ -154,8 +154,8 @@ router.get(
 
         /* If there isn't a stored summoner, create one.  Else we update */
         if (!storedSummoner) {
-          const newSummoner = new Summoner({
-            name,
+          const newSummonerData = {
+            name: name.toLowerCase(),
             data: {
               accountId,
               name,
@@ -165,8 +165,8 @@ router.get(
               ranks,
             },
             lastUpdated: new Date(),
-          });
-          await newSummoner.save();
+          };
+          const newSummoner = await Summoner.create(newSummonerData);
 
           res.json(newSummoner.data);
         } else {

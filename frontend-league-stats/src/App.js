@@ -17,14 +17,20 @@ const App = ({ history }) => {
       targetName.includes("league-stats-search")
     )
       return;
-    else return setShouldDisplaySearch(false);
+    else {
+      setShouldDisplaySearch(false);
+      setSummonerSearchName("");
+      return;
+    }
   };
 
   const handleSearchSubmit = (e) => {
     e.preventDefault();
+    const summonerName = summonerSearchName;
     if (summonerSearchName.length < 3 || summonerSearchName.length > 16) return;
     setShouldDisplaySearch(false);
-    history.push(`/summoner/${summonerSearchName}`);
+    setSummonerSearchName("");
+    history.push(`/summoner/${summonerName}`);
   };
 
   /* Add event listener to close the search box when clicking out */
