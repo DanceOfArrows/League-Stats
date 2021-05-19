@@ -19,7 +19,9 @@ router.get(
     try {
       const { summonerName } = req.params;
       const summonerNameEncoded = encodeURIComponent(summonerName);
-      let storedSummoner = await Summoner.findOne({ name: summonerName });
+      let storedSummoner = await Summoner.findOne({
+        name: summonerName.toLowerCase(),
+      });
       const isUpdateRequired = storedSummoner
         ? timeCheck(storedSummoner.lastUpdated)
         : true;
@@ -107,7 +109,8 @@ router.get(
 
               /* Get boolean for whether user won the match */
               const didWin = participantInfoArr.find(
-                (ele) => ele.summonerName === summonerName
+                (ele) =>
+                  ele.summonerName.toLowerCase() === summonerName.toLowerCase()
               ).stats.win;
 
               /* Create new match document */
@@ -152,7 +155,7 @@ router.get(
         /* If there isn't a stored summoner, create one.  Else we update */
         if (!storedSummoner) {
           const newSummoner = new Summoner({
-            name: summonerName,
+            name,
             data: {
               accountId,
               name,

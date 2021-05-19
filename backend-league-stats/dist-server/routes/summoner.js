@@ -47,7 +47,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             summonerNameEncoded = encodeURIComponent(summonerName);
             _context3.next = 5;
             return _summoner["default"].findOne({
-              name: summonerName
+              name: summonerName.toLowerCase()
             });
 
           case 5:
@@ -178,7 +178,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
 
                         /* Get boolean for whether user won the match */
                         didWin = participantInfoArr.find(function (ele) {
-                          return ele.summonerName === summonerName;
+                          return ele.summonerName.toLowerCase() === summonerName.toLowerCase();
                         }).stats.win;
                         /* Create new match document */
 
@@ -246,7 +246,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             }
 
             newSummoner = new _summoner["default"]({
-              name: summonerName,
+              name: name,
               data: {
                 accountId: accountId,
                 name: name,

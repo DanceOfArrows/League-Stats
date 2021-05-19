@@ -1,32 +1,29 @@
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams, withRouter } from "react-router-dom";
 
 import { getSummoner } from "../redux/summoner";
 
-let summonerNameState;
-
 const Summoner = (props) => {
-  const { summoner, getSummoner } = props;
+  const { summoners, getSummoner } = props;
   const { summonerName } = useParams();
 
   useEffect(() => {
-    if (Object.keys(summoner).length === 0 && summonerName)
+    if (!summoners || !summoners[summonerName.toLowerCase()])
       getSummoner(summonerName);
-    summonerNameState = summonerName;
-  }, [summoner, summonerName, getSummoner]);
+  }, [summoners, summonerName, getSummoner]);
 
-  console.log(summoner);
+  if (summoners) {
+    console.log(summoners[summonerName.toLowerCase()]);
+  }
 
-  return <></>;
+  return <div>Hi</div>;
 };
 
 const mapStateToProps = (state) => {
-  const stateToReturn = { ...state };
-  if (state.summoner[summonerNameState])
-    stateToReturn.summoner = state.summoner[summonerNameState];
-
-  return stateToReturn;
+  return {
+    summoners: state.summoner.summoners,
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -36,16 +33,5 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(
-    memo(Summoner, (prevProps) => {
-      if (prevProps.summoner) {
-        return true;
-      } else {
-        return false;
-      }
-    })
-  )
+  connect(mapStateToProps, mapDispatchToProps)(Summoner)
 );

@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { getLeaderboard } from "../redux/leaderboard";
@@ -31,15 +31,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(
-  memo(Leaderboard, (prevProps) => {
-    if (prevProps.leaderboard) {
-      return true;
-    } else {
-      return false;
-    }
-  })
-);
+export default connect(mapStateToProps, mapDispatchToProps)(Leaderboard);

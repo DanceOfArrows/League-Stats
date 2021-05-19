@@ -24,7 +24,10 @@ export default function reducer(state = {}, action) {
     case LOAD_SUMMONER: {
       return {
         ...state,
-        [action.summoner.name]: action.summoner,
+        summoners: {
+          ...state.summoners,
+          [action.summoner.name.toLowerCase()]: action.summoner,
+        },
       };
     }
     default:
