@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { connect } from "react-redux";
 
 import { getChampionRotation } from "../redux/championRotation";
@@ -31,4 +31,18 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChampionRotation);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(
+  memo(ChampionRotation, (prevProps, nextProps) => {
+    const championRotation = prevProps.championRotation;
+    const newChampionRotation = nextProps.championRotation;
+
+    if (championRotation && newChampionRotation) {
+      return true;
+    } else {
+      return false;
+    }
+  })
+);

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import { connect } from "react-redux";
 import { useParams, withRouter } from "react-router-dom";
 
@@ -36,5 +36,16 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default withRouter(
-  connect(mapStateToProps, mapDispatchToProps)(Summoner)
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(
+    memo(Summoner, (prevProps) => {
+      if (prevProps.summoner) {
+        return true;
+      } else {
+        return false;
+      }
+    })
+  )
 );

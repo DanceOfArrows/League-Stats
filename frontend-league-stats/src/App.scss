@@ -1,31 +1,6 @@
-@font-face {
-  font-family: "Beaufort";
-  src: local("Beaufort"), url("./fonts/Beaufort-Regular.ttf") format("truetype");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "Beaufort";
-  src: local("Beaufort"), url("./fonts/Beaufort-Bold.ttf") format("truetype");
-  font-weight: bolder;
-}
-
-@font-face {
-  font-family: "Univers 59";
-  src: local("Univers 59"),
-    url("./fonts/Univers 59 - Condensed.ttf") format("truetype");
-  font-weight: normal;
-}
-
-@font-face {
-  font-family: "Univers 55";
-  src: local("Univers 55"), url("./fonts/Univers 55.ttf") format("truetype");
-  font-weight: normal;
-}
-
 /* Site wide style */
 * {
-  font-family: "Beaufort";
+  font-family: "Alike Angular";
   font-weight: normal;
   margin: 0;
 }
@@ -33,6 +8,11 @@
 a {
   color: white;
   text-decoration: none;
+}
+
+.iconify,
+div {
+  color: white;
 }
 
 /* App container styling */
@@ -67,12 +47,33 @@ body #league-stats-app {
     max-width: 1344px;
     width: 100%;
 
-    .league-stats-navbar-site-logo {
-      grid-column: 1 / 2;
+    .league-stats-navbar-top-flexbox {
+      align-items: center;
+      display: flex;
+      grid-column: 2 / 3;
+      justify-content: center;
+      position: relative;
+
+      .league-stats-navbar-site-name {
+        width: max-content;
+      }
+
+      .league-stats-navbar-site-search {
+        cursor: pointer;
+        height: 32px;
+        position: absolute;
+        right: 16px;
+        width: 32px;
+
+        svg {
+          height: inherit;
+          width: inherit;
+        }
+      }
     }
 
-    .league-stats-navbar-site-name {
-      grid-column: 2 / 3;
+    .league-stats-navbar-site-logo {
+      grid-column: 1 / 2;
     }
   }
 }
@@ -82,9 +83,22 @@ body #league-stats-app {
   max-width: 1344px;
   width: 100%;
 
+  .league-stats-search-bar {
+    align-items: center;
+    background-color: green;
+    display: flex;
+    height: 4vh;
+    justify-content: center;
+    margin-left: 240px;
+    margin-right: auto;
+    position: fixed;
+    top: 6vh;
+    max-width: 1104px;
+    width: 100%;
+  }
+
   .league-stats-navbar-side {
     background-color: black;
-    color: white;
     display: grid;
     grid-template: 1fr 25% 25% / 1fr;
     height: 94vh;

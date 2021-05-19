@@ -1,12 +1,45 @@
-import React from "react";
-import { NavLink, Route, Switch } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { NavLink, Route, Switch, withRouter } from "react-router-dom";
 
 import * as Components from "./components/ExportComponents";
 import "./App.scss";
 
 const { ChampionRotation, Leaderboard, Summoner } = Components;
 
-function App() {
+const App = ({ history }) => {
+  const [shouldDisplaySearch, setShouldDisplaySearch] = useState(false);
+  const [summonerSearchName, setSummonerSearchName] = useState("");
+
+  const handleClick = (e) => {
+    const targetName = e.target.className;
+    if (
+      typeof targetName === "string" &&
+      targetName.includes("league-stats-search")
+    )
+      return;
+    else return setShouldDisplaySearch(false);
+  };
+
+  const handleSearchSubmit = (e) => {
+    e.preventDefault();
+    if (summonerSearchName.length < 3 || summonerSearchName.length > 16) return;
+    setShouldDisplaySearch(false);
+    history.push(`/summoner/${summonerSearchName}`);
+  };
+
+  /* Add event listener to close the search box when clicking out */
+  useEffect(() => {
+    if (shouldDisplaySearch) {
+      window.addEventListener("click", handleClick);
+    } else {
+      window.removeEventListener("click", handleClick);
+    }
+
+    return () => {
+      window.removeEventListener("click", handleClick);
+    };
+  });
+
   return (
     <>
       <div className="league-stats-background" />
@@ -19,12 +52,46 @@ function App() {
               alt="Logo"
             />
           </NavLink>
-          <NavLink to="/" className="league-stats-navbar-site-name">
-            <h1>League Stats</h1>
-          </NavLink>
+          <div className="league-stats-navbar-top-flexbox">
+            <NavLink to="/" className="league-stats-navbar-site-name">
+              <h1>League Stats</h1>
+            </NavLink>
+            <div
+              className="league-stats-navbar-site-search"
+              onClick={() =>
+                shouldDisplaySearch
+                  ? setShouldDisplaySearch(false)
+                  : setShouldDisplaySearch(true)
+              }
+            >
+              <span
+                className="iconify"
+                data-icon="fluent:search-12-regular"
+                data-inline="false"
+              />
+            </div>
+          </div>
         </nav>
       </div>
       <div className="league-stats-container">
+        {/* Search bar */}
+        {shouldDisplaySearch ? (
+          <div className="league-stats-search-bar">
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                className="league-stats-search-input"
+                type="text"
+                placeholder="Summoner Name"
+                onChange={(e) => setSummonerSearchName(e.target.value)}
+                value={summonerSearchName}
+              />
+              <button className="league-stats-search-button" type="submit">
+                Search
+              </button>
+            </form>
+          </div>
+        ) : null}
+        {/* Side nav */}
         <div className="league-stats-navbar-side">
           <nav>
             <NavLink
@@ -97,6 +164,6 @@ function App() {
       </div>
     </>
   );
-}
+};
 
-export default App;
+export default withRouter(App);

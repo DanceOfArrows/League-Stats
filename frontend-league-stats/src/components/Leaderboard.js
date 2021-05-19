@@ -1,41 +1,45 @@
-import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import React, { memo, useEffect } from "react";
+import { connect } from "react-redux";
 
-import { getLeaderboard } from '../redux/leaderboard';
+import { getLeaderboard } from "../redux/leaderboard";
 
 const Leaderboard = (props) => {
-    const { leaderboard, getLeaderboard } = props;
+  const { leaderboard, getLeaderboard } = props;
 
-    useEffect(() => {
-        if (!leaderboard) getLeaderboard();
-    }, [leaderboard, getLeaderboard]);
+  useEffect(() => {
+    if (!leaderboard) getLeaderboard();
+  }, [leaderboard, getLeaderboard]);
 
-    console.log(leaderboard)
+  console.log(leaderboard);
 
-    return (
-        <>
-            <div className='league-stats-test-long-div'>
-
-            </div>
-        </>
-    );
-}
-
-const mapStateToProps = state => {
-    return {
-        leaderboard: state.leaderboard.leaderboard,
-    };
+  return (
+    <>
+      <div className="league-stats-test-long-div"></div>
+    </>
+  );
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        getLeaderboard: () => dispatch(getLeaderboard()),
-    };
+const mapStateToProps = (state) => {
+  return {
+    leaderboard: state.leaderboard.leaderboard,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getLeaderboard: () => dispatch(getLeaderboard()),
+  };
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(
-    Leaderboard
+  memo(Leaderboard, (prevProps) => {
+    if (prevProps.leaderboard) {
+      return true;
+    } else {
+      return false;
+    }
+  })
 );
