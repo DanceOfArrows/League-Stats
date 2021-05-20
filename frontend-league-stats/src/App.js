@@ -48,7 +48,7 @@ const App = ({ history }) => {
 
   return (
     <>
-      <div className="league-stats-background" />
+      {/* <div className="league-stats-background" /> */}
       {/* Top nav */}
       <div className="league-stats-navbar-top">
         <nav>
@@ -100,28 +100,34 @@ const App = ({ history }) => {
         {/* Side nav */}
         <div className="league-stats-navbar-side">
           <nav>
-            <NavLink
-              className="league-stats-navbar-side-item"
-              activeClassName="league-stats-navbar-side-item-active"
-              exact
-              to="/"
-            >
-              Home
-            </NavLink>
-            <NavLink
-              className="league-stats-navbar-side-item"
-              activeClassName="league-stats-navbar-side-item-active"
-              to="/champion-rotation"
-            >
-              Champion Rotation
-            </NavLink>
-            <NavLink
-              className="league-stats-navbar-side-item"
-              activeClassName="league-stats-navbar-side-item-active"
-              to="/leaderboard"
-            >
-              Leaderboard
-            </NavLink>
+            <div>
+              <NavLink
+                className="league-stats-navbar-side-item"
+                activeClassName="league-stats-navbar-side-item-active"
+                exact
+                to="/"
+              >
+                Home
+              </NavLink>
+            </div>
+            <div>
+              <NavLink
+                className="league-stats-navbar-side-item"
+                activeClassName="league-stats-navbar-side-item-active"
+                to="/champion-rotation"
+              >
+                Champion Rotation
+              </NavLink>
+            </div>
+            <div>
+              <NavLink
+                className="league-stats-navbar-side-item"
+                activeClassName="league-stats-navbar-side-item-active"
+                to="/leaderboard"
+              >
+                Leaderboard
+              </NavLink>
+            </div>
           </nav>
           <div className="league-stats-navbar-side-social">
             <a
