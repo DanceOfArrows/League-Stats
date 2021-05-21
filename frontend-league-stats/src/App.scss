@@ -1,185 +1,440 @@
 /* Colors*/
-$primary-color: #4e306c;
-$secondary-color: #6f4978;
-$tertiary-color: #fff5f6;
-$background-color: #fff5f6;
+$primary-color: #ffffff;
+$secondary-color: #ffffff;
+$accent-color: #a11742;
+$text-color: #4d5168;
+$background-color: #ffffff;
+$border-color: #f4f4f4;
+
+/* Dark Colors */
+$dark-primary-color: #000000;
+$dark-secondary-color: #000000;
+$dark-accent-color: #a11742;
+$dark-text-color: #ffffff;
+$dark-background-color: #000000;
+$dark-border-color: #414141;
 
 /* Site wide style */
 * {
-  font-family: "Alike Angular";
+  font-family: "KoHo";
   font-weight: normal;
+  letter-spacing: -0.05rem;
   margin: 0;
 }
 
-a {
-  color: $tertiary-color;
-  text-decoration: none;
-}
-
-.iconify,
-div {
-  color: $tertiary-color;
-}
-
-/* App container styling */
-body,
-html,
-body #league-stats-app {
+html {
   height: 100%;
+  scrollbar-color: $accent-color $background-color;
 }
 
-/* Background Styling */
-// .league-stats-background {
-//   background: url("https://cdn.discordapp.com/attachments/472586743686889482/834265829205606470/sb-en.png")
-//     no-repeat center center fixed;
-//   background-size: cover;
-//   position: fixed;
-//   min-height: 100vh;
-//   min-width: 100%;
-//   z-index: -1;
-// }
+html.dark {
+  scrollbar-color: $dark-accent-color $dark-border-color;
+}
 
-.league-stats-navbar-top {
-  height: 6vh;
-  position: fixed;
-  width: 100%;
+/* Layout + Light Theme */
+body {
+  /* Scroll Bar */
+  &::-webkit-scrollbar {
+    height: 1rem;
+    width: 1rem;
+    background: $border-color;
+  }
 
-  nav {
-    background-color: $primary-color;
-    display: grid;
-    grid-template: 1fr / 240px 1fr;
+  &::-webkit-scrollbar-thumb {
+    background: $accent-color;
+  }
+
+  a {
+    color: $text-color;
+    text-decoration: none;
+  }
+
+  .iconify,
+  div {
+    color: $text-color;
+  }
+
+  /* App container styling */
+  body,
+  body #league-stats-app {
     height: 100%;
+  }
+
+  .league-stats-navbar-top {
+    box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, 0.1);
+    height: 4rem;
+    position: fixed;
     width: 100%;
-
-    .league-stats-navbar-top-flexbox {
-      align-items: center;
-      border-left: solid 1px $tertiary-color;
-      display: flex;
-      grid-column: 2 / 3;
-      justify-content: center;
-      position: relative;
-
-      .league-stats-navbar-site-name {
-        width: max-content;
-      }
-
-      .league-stats-navbar-site-search {
-        cursor: pointer;
-        height: 32px;
-        position: absolute;
-        right: 16px;
-        width: 32px;
-
-        svg {
-          height: inherit;
-          width: inherit;
-        }
-      }
-    }
-
-    .league-stats-navbar-site-logo {
-      grid-column: 1 / 2;
-    }
-  }
-}
-
-.league-stats-container {
-  margin: 0 auto;
-  width: 100%;
-
-  .league-stats-search-bar {
-    align-items: center;
-    background-color: $primary-color;
-    display: flex;
-    height: 4vh;
-    justify-content: center;
-    margin-left: 240px;
-    margin-right: auto;
-    opacity: 0.9;
-    position: fixed;
-    top: 6vh;
-    width: calc(100% - 240px);
-  }
-
-  .league-stats-navbar-side {
-    background-color: $secondary-color;
-    display: grid;
-    grid-template: 1fr 25% 25% / 1fr;
-    height: 94vh;
-    margin-right: auto;
-    position: fixed;
-    top: 6vh;
-    width: 240px;
-
-    nav,
-    .league-stats-navbar-side-social {
-      border-bottom: solid 1px $tertiary-color;
-    }
+    z-index: 2;
 
     nav {
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
+      background-color: $primary-color;
+      display: grid;
+      grid-template: 1fr / 240px 1fr;
+      height: 100%;
       width: 100%;
 
-      div {
-        a {
-          box-sizing: border-box;
-          display: block;
-          padding: 16px;
-          width: calc(100% - 3px);
+      .league-stats-navbar-top-flexbox {
+        align-items: center;
+        display: flex;
+        grid-column: 2 / 3;
+        justify-content: center;
+        position: relative;
+
+        .league-stats-navbar-site-name {
+          color: $accent-color;
+          width: max-content;
+        }
+
+        .league-stats-navbar-site-search {
+          cursor: pointer;
+          height: 2rem;
+          position: absolute;
+          transition: right 200ms ease;
+          width: 2rem;
+
+          svg {
+            height: inherit;
+            width: inherit;
+          }
+        }
+
+        .league-stats-search-bar {
+          position: absolute;
+          right: 1rem;
+          transition: all 200ms ease;
+
+          .league-stats-search-input {
+            background-color: $border-color;
+            border: none;
+            border-radius: 4px;
+            box-sizing: border-box;
+            outline: none;
+            padding: 8px 42px 8px 14px;
+            position: relative;
+            width: 100%;
+          }
+
+          .league-stats-search-button {
+            border: none;
+            border-radius: 0 4px 4px 0;
+            background-color: $text-color;
+            cursor: pointer;
+            height: 100%;
+            position: absolute;
+            right: 0;
+            top: 0;
+
+            svg {
+              color: $border-color;
+            }
+          }
         }
       }
-    }
 
-    .league-stats-navbar-side-social {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      margin-top: auto;
-      padding: 1em 2em;
-      position: relative;
-
-      a,
-      .iconify {
-        height: 32px;
-        width: 32px;
+      .league-stats-navbar-site-logo {
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.05), 1px 0 rgba(0, 0, 0, 0.05);
+        grid-column: 1 / 2;
       }
-
-      &:before {
-        content: "";
-        position: absolute;
-        left: 12.5%;
-        top: 0;
-        height: 1px;
-        width: 75%;
-        border-top: 1px solid $tertiary-color;
-      }
-    }
-
-    .league-stats-navbar-side-footer {
-      align-self: center;
-      color: #ece4e5;
-      display: flex;
-      flex-direction: column;
-      font-size: 0.85rem;
-      justify-content: flex-start;
-      padding: 1em 2em;
     }
   }
 
-  .league-stats-page {
-    background-color: $background-color;
-    height: 100%;
-    float: right;
-    margin-top: 6vh;
-    min-height: 94vh;
-    position: relative;
-    width: calc(100% - 240px);
-    z-index: -1;
+  .league-stats-container {
+    margin: 0 auto;
+    width: 100%;
+
+    .league-stats-sidebar {
+      background-color: $secondary-color;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.05), 1px 0 rgba(0, 0, 0, 0.05);
+      display: grid;
+      grid-template: 1fr 25% 25% / 1fr;
+      height: 94vh;
+      margin-right: auto;
+      position: fixed;
+      top: 4rem;
+      width: 240px;
+      z-index: 1;
+
+      nav,
+      .league-stats-sidebar-social {
+        border-bottom: solid 1px $border-color;
+
+        .league-stats-sidebar-social-github {
+          .iconify {
+            color: #24292e;
+          }
+        }
+
+        .league-stats-sidebar-social-linkedIn {
+          .iconify {
+            color: #0a66c2;
+          }
+        }
+      }
+
+      nav {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width: 100%;
+
+        .league-stats-light-switch-container {
+          align-items: center;
+          display: flex;
+          justify-content: center;
+          margin: auto 0 1rem 0;
+          width: 100%;
+
+          svg {
+            height: 1.5rem;
+            width: 1.5rem;
+          }
+
+          .league-stats-light-switch {
+            display: inline-block;
+            height: 1.5rem;
+            margin: 0 1rem;
+            position: relative;
+            width: 3rem;
+          }
+
+          /* Hide default HTML checkbox */
+          .league-stats-light-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+          }
+
+          /* Slider */
+          .league-stats-light-slider {
+            border-radius: 25px;
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: 0.4s;
+            transition: 0.4s;
+
+            &:before {
+              background-color: white;
+              border-radius: 50%;
+              bottom: 0.25rem;
+              content: "";
+              height: 1rem;
+              left: 0.25rem;
+              position: absolute;
+              transition: 0.4s;
+              width: 1rem;
+              -webkit-transition: 0.4s;
+            }
+          }
+
+          input:checked + .league-stats-light-slider {
+            background-color: $accent-color;
+          }
+
+          input:focus + .league-stats-light-slider {
+            box-shadow: 0 0 1px $border-color;
+          }
+
+          input:checked + .league-stats-light-slider:before {
+            -webkit-transform: translateX(1.5rem);
+            -ms-transform: translateX(1.5rem);
+            transform: translateX(1.5rem);
+          }
+        }
+
+        /* Sidebar Links */
+        .league-stats-sidebar-link {
+          border-right: solid 3px transparent;
+          transition: all 200ms ease;
+
+          &:hover {
+            background-color: $border-color;
+            border-color: $accent-color;
+          }
+
+          a {
+            box-sizing: border-box;
+            display: block;
+            padding: 16px;
+            width: calc(100% - 3px);
+          }
+        }
+      }
+
+      .league-stats-sidebar-social {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        margin-top: auto;
+        padding: 1em 2em;
+        position: relative;
+
+        a,
+        .iconify {
+          height: 2rem;
+          transition: transform 200ms ease;
+          width: 2rem;
+
+          &:hover {
+            transform: scale(1.25);
+          }
+        }
+
+        &:before {
+          border-top: 1px solid $border-color;
+          content: "";
+          position: absolute;
+          left: 12.5%;
+          top: 0;
+          height: 1px;
+          width: 75%;
+        }
+      }
+
+      .league-stats-sidebar-footer {
+        align-self: center;
+        color: $text-color;
+        display: flex;
+        flex-direction: column;
+        font-size: 0.9rem;
+        justify-content: flex-start;
+        opacity: 0.5;
+        padding: 1em 2em;
+      }
+    }
+
+    .league-stats-page {
+      background-color: $background-color;
+      height: 100%;
+      float: right;
+      margin-top: 4rem;
+      min-height: calc(100vh - 4rem);
+      position: relative;
+      width: calc(100% - 240px);
+      z-index: -1;
+    }
+  }
+
+  .league-stats-test-long-div {
+    height: 2600px;
   }
 }
 
-.league-stats-test-long-div {
-  height: 2600px;
+/* Dark Theme */
+body.dark {
+  /* Scroll Bar */
+  &::-webkit-scrollbar {
+    height: 1rem;
+    width: 1rem;
+    background: $dark-border-color;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: $dark-accent-color;
+  }
+
+  a {
+    color: $dark-text-color;
+  }
+
+  .iconify,
+  div {
+    color: $dark-text-color;
+  }
+
+  .league-stats-navbar-top {
+    border-bottom: solid 1px $dark-border-color;
+
+    nav {
+      background-color: $dark-primary-color;
+
+      .league-stats-navbar-top-flexbox {
+        border-left: solid 1px $dark-border-color;
+
+        .league-stats-navbar-site-name {
+          color: $dark-accent-color;
+        }
+
+        .league-stats-search-bar {
+          .league-stats-search-input {
+            background-color: $dark-border-color;
+          }
+
+          .league-stats-search-button {
+            background-color: $dark-text-color;
+
+            svg {
+              color: $dark-border-color;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .league-stats-container {
+    .league-stats-sidebar {
+      background-color: $dark-secondary-color;
+      border-right: solid 1px $dark-border-color;
+
+      nav,
+      .league-stats-sidebar-social {
+        border-bottom: solid 1px $dark-border-color;
+
+        .league-stats-sidebar-social-github {
+          .iconify {
+            color: white;
+          }
+        }
+      }
+
+      nav {
+        .league-stats-light-switch-container {
+          /* Slider */
+          .league-stats-light-slider {
+            background-color: $border-color;
+
+            &:before {
+              background-color: white;
+            }
+          }
+
+          input:checked + .league-stats-light-slider {
+            background-color: $dark-accent-color;
+          }
+
+          input:focus + .league-stats-light-slider {
+            box-shadow: 0 0 1px $dark-border-color;
+          }
+        }
+
+        /* Sidebar Links */
+        .league-stats-sidebar-link {
+          &:hover {
+            background-color: $dark-border-color;
+            border-color: $dark-accent-color;
+          }
+        }
+      }
+
+      .league-stats-sidebar-social {
+        &:before {
+          border-top: 1px solid $dark-border-color;
+        }
+      }
+
+      .league-stats-sidebar-footer {
+        color: $dark-text-color;
+      }
+    }
+
+    .league-stats-page {
+      background-color: $dark-background-color;
+    }
+  }
 }
