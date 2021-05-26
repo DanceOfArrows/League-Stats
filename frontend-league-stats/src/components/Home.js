@@ -3,12 +3,11 @@ import { connect } from "react-redux";
 import { NavLink } from "react-router-dom";
 
 import { getLeaderboard } from "../redux/leaderboard";
+import Loader from "./Loader";
 
 const Home = (props) => {
   const { leaderboard, getLeaderboard } = props;
   const topFivePlayers = leaderboard ? leaderboard.slice(0, 5) : null;
-
-  console.log(topFivePlayers);
 
   useEffect(() => {
     if (!leaderboard) getLeaderboard();
@@ -16,7 +15,7 @@ const Home = (props) => {
 
   return (
     <>
-      <div className="league-stats-home-container">
+      <div className="league-stats-home page-container">
         <div className="league-stats-home-section">
           <div className="league-stats-home-section-text">
             <NavLink to="/champion-rotation">
@@ -27,7 +26,8 @@ const Home = (props) => {
             <div className="league-stats-home-section-description">
               Displays the current champions that are available for everyone to
               play. These champions do not need to be owned or purchased for the
-              duration that they are free.
+              duration that they are free. Clicking on any of the champion boxes
+              will take you to that champion's wiki page.
             </div>
           </div>
         </div>
@@ -45,8 +45,9 @@ const Home = (props) => {
           </div>
           <div className="league-stats-home-section-leaderboard-display">
             <h2 style={{ alignSelf: "center" }}>Top 5</h2>
-            {topFivePlayers
-              ? topFivePlayers.map((player, idx) => (
+            <div className="league-stats-home-section-leaderboard-topFive">
+              {topFivePlayers ? (
+                topFivePlayers.map((player, idx) => (
                   <div
                     key={`league-stats-home-leaderboard-${player.summonerName}`}
                   >
@@ -56,7 +57,10 @@ const Home = (props) => {
                     </NavLink>
                   </div>
                 ))
-              : null}
+              ) : (
+                <Loader size="3rem" />
+              )}
+            </div>
           </div>
         </div>
         <div className="league-stats-home-section">

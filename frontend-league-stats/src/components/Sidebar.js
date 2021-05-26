@@ -23,34 +23,28 @@ const Sidebar = () => {
   return (
     <div className="league-stats-sidebar">
       <nav>
-        <div className="league-stats-sidebar-link">
-          <NavLink
-            className="league-stats-sidebar-item"
-            activeClassName="league-stats-sidebar-item-active"
-            exact
-            to="/"
-          >
-            Home
-          </NavLink>
-        </div>
-        <div className="league-stats-sidebar-link">
-          <NavLink
-            className="league-stats-sidebar-item"
-            activeClassName="league-stats-sidebar-item-active"
-            to="/champion-rotation"
-          >
-            Champion Rotation
-          </NavLink>
-        </div>
-        <div className="league-stats-sidebar-link">
-          <NavLink
-            className="league-stats-sidebar-item"
-            activeClassName="league-stats-sidebar-item-active"
-            to="/leaderboard"
-          >
-            Leaderboard
-          </NavLink>
-        </div>
+        <NavLink
+          className="league-stats-sidebar-item"
+          activeClassName="league-stats-sidebar-item-active"
+          exact
+          to="/"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          className="league-stats-sidebar-item"
+          activeClassName="league-stats-sidebar-item-active"
+          to="/champion-rotation"
+        >
+          Champion Rotation
+        </NavLink>
+        <NavLink
+          className="league-stats-sidebar-item"
+          activeClassName="league-stats-sidebar-item-active"
+          to="/leaderboard"
+        >
+          Leaderboard
+        </NavLink>
         <div className="league-stats-light-switch-container">
           <span
             className="iconify"

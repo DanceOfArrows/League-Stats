@@ -20,6 +20,8 @@ const Navbar = ({ history }) => {
 
   const handleClick = (e) => {
     const targetName = e.target.className;
+    console.log(e.target);
+    console.log(targetName);
     if (typeof targetName === "string" && targetName.includes("search")) return;
     else {
       setShouldDisplaySearch(false);
