@@ -13,8 +13,6 @@ const ChampionRotation = (props) => {
     if (!championRotation) getChampionRotation();
   }, [championRotation, getChampionRotation]);
 
-  console.log(championRotation);
-
   return (
     <>
       <div className="league-stats-champion-rotation page-container">
