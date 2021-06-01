@@ -65,7 +65,12 @@ const Leaderboard = (props) => {
                       <div>{idx + 1}</div>
                       <NavLink
                         to={`/summoner/${summonerName}`}
-                        style={{ justifySelf: "center", width: "max-content" }}
+                        style={{
+                          height: "100%",
+                          justifySelf: "center",
+                          width: "100%",
+                        }}
+                        className="league-stats-center-text"
                       >
                         {summonerName}
                       </NavLink>

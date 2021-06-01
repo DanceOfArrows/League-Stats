@@ -73,6 +73,13 @@ body {
     }
   }
 
+  .league-stats-center-text:before {
+    content: "";
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+  }
+
   /* Loader Styling */
   .league-stats-loader {
     border: 16px solid $border-color; /* Light grey */

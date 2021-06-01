@@ -42,8 +42,8 @@ const Home = (props) => {
               A list of the top 300 players of the game, along with their league
               points (LP), wins, and win rate. Using the left or right arrow key
               will switch the page accordingly (left for previous, right for
-              next). Clicking on the name of a player will take you to their
-              summoner page.
+              next). Clicking the summoner name box will take you to that
+              summoner's page.
             </div>
           </div>
           <div className="league-stats-home-section-leaderboard-display">
