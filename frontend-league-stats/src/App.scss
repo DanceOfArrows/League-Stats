@@ -754,22 +754,6 @@ body.dark {
               }
             }
           }
-
-          .league-stats-home-section-leaderboard-display {
-            border: solid 1px $dark-border-color;
-
-            h2 {
-              color: $dark-accent-color;
-            }
-
-            div {
-              a {
-                &:hover {
-                  color: $dark-accent-color;
-                }
-              }
-            }
-          }
         }
       }
 
@@ -800,6 +784,55 @@ body.dark {
 
             &:hover {
               color: $dark-accent-color;
+            }
+          }
+        }
+      }
+
+      .league-stats-leaderboard {
+        .league-stats-leaderboard-box {
+          .league-stats-leaderboard-row {
+            a {
+              &:hover {
+                color: $dark-accent-color;
+              }
+            }
+          }
+
+          .league-stats-leaderboard-row.odd {
+            background-color: $dark-border-color;
+          }
+
+          .league-stats-leaderboard-pagination {
+            li {
+              border: solid 1px $dark-accent-color;
+            }
+
+            li.next {
+              border-right: solid 1px $dark-accent-color;
+            }
+
+            li.disabled {
+              a {
+                &:hover {
+                  color: $dark-text-color !important;
+                }
+              }
+            }
+
+            a {
+              &:hover {
+                color: $dark-accent-color;
+              }
+            }
+
+            .active {
+              background-color: $dark-accent-color;
+              border-color: $dark-accent-color;
+
+              a {
+                color: $dark-background-color !important;
+              }
             }
           }
         }
