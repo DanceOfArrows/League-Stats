@@ -548,12 +548,18 @@ body {
             margin: auto auto 0 auto;
             outline: none;
             padding: 0.5rem;
-            width: max-content;
+            width: 40rem;
 
             li {
               border: solid 1px $accent-color;
               border-right: solid 0 transparent;
               cursor: pointer;
+              flex-grow: 1;
+            }
+
+            li.next,
+            li.previous {
+              text-align: center;
             }
 
             li.next {
@@ -577,8 +583,10 @@ body {
 
             a {
               display: inline-block;
-              padding: 0.75rem;
+              padding: 1rem;
+              text-align: center;
               transition: color 250ms ease;
+              width: calc(100% - 2rem);
 
               -webkit-user-select: none;
               -moz-user-select: none;
