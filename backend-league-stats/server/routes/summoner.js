@@ -19,8 +19,12 @@ router.get(
     try {
       const { summonerName } = req.params;
       const summonerNameEncoded = encodeURIComponent(summonerName);
+      const summonerData = await fetchHandler(
+        `lol/summoner/v4/summoners/by-name/${summonerNameEncoded}`
+      );
+      const nameToUse = summonerData.name;
       let storedSummoner = await Summoner.findOne({
-        name: summonerName.toLowerCase(),
+        name: nameToUse.toLowerCase(),
       });
       const isUpdateRequired = storedSummoner
         ? timeCheck(storedSummoner.lastUpdated)
@@ -28,11 +32,7 @@ router.get(
 
       if (isUpdateRequired) {
         /* Get summoner data using their name */
-        const summonerData = await fetchHandler(
-          `lol/summoner/v4/summoners/by-name/${summonerNameEncoded}`
-        );
-        const { accountId, id, name, profileIconId, summonerLevel } =
-          summonerData;
+        const { accountId, id, profileIconId, summonerLevel } = summonerData;
 
         /* Gets 10 recent matches.  This is due to API limitations (can go to 100, but rate limited to 20 per 1 sec and 100 per 2 min) */
         const summonerMatches = await fetchHandler(
@@ -52,6 +52,7 @@ router.get(
             if (!storedMatch) {
               const matchData = await fetchHandler(
                 `lol/match/v4/matches/${matchId}`
+                //true
               );
 
               const {
@@ -87,6 +88,7 @@ router.get(
                   } = participantIdentities.find(
                     (ele) => ele.participantId === participantId
                   );
+
                   const ban =
                     bans.length > 0
                       ? bans.find((ele) => ele.pickTurn === participantId)
@@ -108,10 +110,11 @@ router.get(
               );
 
               /* Get boolean for whether user won the match */
-              const didWin = participantInfoArr.find(
-                (ele) =>
-                  ele.summonerName.toLowerCase() === summonerName.toLowerCase()
-              ).stats.win;
+              const didWin = participantInfoArr.find((ele) => {
+                return (
+                  ele.summonerName.toLowerCase() === nameToUse.toLowerCase()
+                );
+              }).stats.win;
 
               /* Create new match document */
               const newMatch = new Match({
@@ -155,10 +158,9 @@ router.get(
         /* If there isn't a stored summoner, create one.  Else we update */
         if (!storedSummoner) {
           const newSummonerData = {
-            name: name.toLowerCase(),
+            name: nameToUse.toLowerCase(),
             data: {
-              accountId,
-              name,
+              nameToUse,
               profileIconId,
               summonerLevel,
               matches: matchDataArr,
@@ -171,9 +173,7 @@ router.get(
           res.json(newSummoner.data);
         } else {
           storedSummoner.data = {
-            accountId,
-            id,
-            name,
+            nameToUse,
             profileIconId,
             summonerLevel,
             matches: matchDataArr,
@@ -185,6 +185,7 @@ router.get(
           res.json(storedSummoner.data);
         }
       } else {
+        console.log("in");
         res.json(storedSummoner.data);
       }
     } catch (e) {

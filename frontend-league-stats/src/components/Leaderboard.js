@@ -39,64 +39,62 @@ const Leaderboard = (props) => {
       <div className="league-stats-leaderboard page-container">
         {leaderboard ? (
           <>
-            <div className="league-stats-leaderboard-box">
-              <div
-                className="league-stats-leaderboard-row"
-                // style={{ flexGrow: 0 }}
-              >
-                <h2>#</h2>
-                <h2>Name</h2>
-                <h2>LP</h2>
-                <h2>Wins (Win Rate)</h2>
-              </div>{" "}
-              {leaderboard.map((player, idx) => {
-                if (idx < rangeToMap[0] || idx > rangeToMap[1]) return null;
-                else {
-                  const { leaguePoints, losses, summonerName, wins } = player;
-                  return (
-                    <div
-                      key={`league-stats-leaderboard-player-${summonerName}`}
-                      className={
-                        (idx + 1) % 2 === 0
-                          ? "league-stats-leaderboard-row"
-                          : "league-stats-leaderboard-row odd"
-                      }
+            <div
+              className="league-stats-leaderboard-row"
+              // style={{ flexGrow: 0 }}
+            >
+              <h2>#</h2>
+              <h2>Name</h2>
+              <h2>LP</h2>
+              <h2>Wins (Win Rate)</h2>
+            </div>{" "}
+            {leaderboard.map((player, idx) => {
+              if (idx < rangeToMap[0] || idx > rangeToMap[1]) return null;
+              else {
+                const { leaguePoints, losses, summonerName, wins } = player;
+                return (
+                  <div
+                    key={`league-stats-leaderboard-player-${summonerName}`}
+                    className={
+                      (idx + 1) % 2 === 0
+                        ? "league-stats-leaderboard-row"
+                        : "league-stats-leaderboard-row odd"
+                    }
+                  >
+                    <div>{idx + 1}</div>
+                    <NavLink
+                      to={`/summoner/${summonerName}`}
+                      style={{
+                        height: "100%",
+                        justifySelf: "center",
+                        width: "100%",
+                      }}
+                      className="league-stats-center-text"
                     >
-                      <div>{idx + 1}</div>
-                      <NavLink
-                        to={`/summoner/${summonerName}`}
-                        style={{
-                          height: "100%",
-                          justifySelf: "center",
-                          width: "100%",
-                        }}
-                        className="league-stats-center-text"
-                      >
-                        {summonerName}
-                      </NavLink>
-                      <div>{leaguePoints}</div>
-                      <div>
-                        {wins} (
-                        {(
-                          (wins / (wins + losses)) * 100 +
-                          Number.EPSILON
-                        ).toFixed(2)}
-                        % )
-                      </div>
+                      {summonerName}
+                    </NavLink>
+                    <div>{leaguePoints}</div>
+                    <div>
+                      {wins} (
+                      {(
+                        (wins / (wins + losses)) * 100 +
+                        Number.EPSILON
+                      ).toFixed(2)}
+                      % )
                     </div>
-                  );
-                }
-              })}
-              <ReactPaginate
-                pageCount={30}
-                pageRangeDisplayed={4}
-                marginPagesDisplayed={1}
-                containerClassName={"league-stats-leaderboard-pagination"}
-                activeClassName={"active"}
-                forcePage={page - 1}
-                onPageChange={(e) => setPage(e.selected + 1)}
-              />
-            </div>
+                  </div>
+                );
+              }
+            })}
+            <ReactPaginate
+              pageCount={30}
+              pageRangeDisplayed={4}
+              marginPagesDisplayed={1}
+              containerClassName={"league-stats-leaderboard-pagination"}
+              activeClassName={"active"}
+              forcePage={page - 1}
+              onPageChange={(e) => setPage(e.selected + 1)}
+            />
           </>
         ) : (
           <Loader full="true" size="5rem" />

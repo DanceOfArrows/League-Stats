@@ -470,10 +470,14 @@ const convertChampionIds = async (championIds) => {
 };
 
 /* Fetch function to prevent repeating of headers */
-const fetchHandler = async (path) => {
-  const res = await fetch(`https://na1.api.riotgames.com/${path}`, {
-    headers: { "X-Riot-Token": riotKey },
-  });
+const fetchHandler = async (path, isRegionRoute) => {
+  const res = !isRegionRoute
+    ? await fetch(`https://na1.api.riotgames.com/${path}`, {
+        headers: { "X-Riot-Token": riotKey },
+      })
+    : await fetch(`https://americas.api.riotgames.com/${path}`, {
+        headers: { "X-Riot-Token": riotKey },
+      });
   const parsedRes = await res.json();
 
   if (res.ok) return parsedRes;

@@ -512,41 +512,62 @@ var convertChampionIds = /*#__PURE__*/function () {
 exports.convertChampionIds = convertChampionIds;
 
 var fetchHandler = /*#__PURE__*/function () {
-  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(path) {
+  var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(path, isRegionRoute) {
     var res, parsedRes, fetchErr;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
-            _context3.next = 2;
+            if (isRegionRoute) {
+              _context3.next = 6;
+              break;
+            }
+
+            _context3.next = 3;
             return (0, _nodeFetch["default"])("https://na1.api.riotgames.com/".concat(path), {
               headers: {
                 "X-Riot-Token": _config.riotKey
               }
             });
 
-          case 2:
-            res = _context3.sent;
-            _context3.next = 5;
+          case 3:
+            _context3.t0 = _context3.sent;
+            _context3.next = 9;
+            break;
+
+          case 6:
+            _context3.next = 8;
+            return (0, _nodeFetch["default"])("https://americas.api.riotgames.com/".concat(path), {
+              headers: {
+                "X-Riot-Token": _config.riotKey
+              }
+            });
+
+          case 8:
+            _context3.t0 = _context3.sent;
+
+          case 9:
+            res = _context3.t0;
+            _context3.next = 12;
             return res.json();
 
-          case 5:
+          case 12:
             parsedRes = _context3.sent;
 
             if (!res.ok) {
-              _context3.next = 10;
+              _context3.next = 17;
               break;
             }
 
             return _context3.abrupt("return", parsedRes);
 
-          case 10:
+          case 17:
             fetchErr = new Error(parsedRes.status.message);
             fetchErr.status = parsedRes.status.status_code;
             fetchErr.title = "Fetch from Riot API Error";
             throw fetchErr;
 
-          case 14:
+          case 21:
           case "end":
             return _context3.stop();
         }
@@ -554,7 +575,7 @@ var fetchHandler = /*#__PURE__*/function () {
     }, _callee3);
   }));
 
-  return function fetchHandler(_x3) {
+  return function fetchHandler(_x3, _x4) {
     return _ref3.apply(this, arguments);
   };
 }();

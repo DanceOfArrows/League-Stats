@@ -358,11 +358,14 @@ body {
       float: right;
       margin-top: 4rem;
       min-height: calc(100vh - 4rem);
+      overflow-x: hidden;
       position: relative;
       width: calc(100% - 240px);
       z-index: -1;
 
       .page-container {
+        margin: 1.5rem 3rem;
+        min-height: calc(100vh - 7rem);
         overflow: hidden;
       }
 
@@ -453,15 +456,12 @@ body {
 
       /* Champion Rotation Page */
       .league-stats-champion-rotation {
-        min-height: calc(100vh - 4rem);
-
         .league-stats-champion-rotation-box {
           // border: solid 1px $border-color;
           // box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
           display: flex;
           flex-wrap: wrap;
           justify-content: flex-start;
-          margin: 1.5rem 3rem;
 
           a {
             align-items: center;
@@ -520,98 +520,206 @@ body {
 
       /* Leaderboard Page */
       .league-stats-leaderboard {
-        min-height: calc(100vh - 4rem);
+        display: flex;
+        flex-direction: column;
+        min-height: calc(100vh - 7rem);
 
-        .league-stats-leaderboard-box {
+        .league-stats-leaderboard-row {
+          align-items: center;
+          align-self: center;
+          display: grid;
+          flex-grow: 1;
+          grid-template: 1fr / 0.5fr 2fr 1fr 1fr;
+          padding: 0;
+          text-align: center;
+          width: 100%;
+
+          a {
+            transition: color 250ms ease;
+            &:hover {
+              color: $accent-color;
+            }
+          }
+        }
+
+        .league-stats-leaderboard-row.odd {
+          background-color: $border-color;
+        }
+
+        .league-stats-leaderboard-pagination {
           display: flex;
-          flex-direction: column;
-          margin: 0.5rem 4.5rem 1.5rem 4.5rem;
-          min-height: calc(100vh - 6rem);
+          list-style: none;
+          margin: auto auto 0 auto;
+          outline: none;
+          padding: 0.5rem;
+          width: 40rem;
 
-          .league-stats-leaderboard-row {
-            align-items: center;
-            align-self: center;
-            display: grid;
+          li {
+            border: solid 1px $accent-color;
+            border-right: solid 0 transparent;
+            cursor: pointer;
             flex-grow: 1;
-            grid-template: 1fr / 0.5fr 2fr 1fr 1fr;
-            padding: 0;
+          }
+
+          li.next,
+          li.previous {
             text-align: center;
-            width: 100%;
+          }
+
+          li.next {
+            border-radius: 0 6px 6px 0;
+            border-right: solid 1px $accent-color;
+          }
+
+          li.previous {
+            border-radius: 6px 0 0 6px;
+          }
+
+          li.disabled {
+            cursor: default;
 
             a {
-              transition: color 250ms ease;
               &:hover {
-                color: $accent-color;
+                color: $text-color !important;
               }
             }
           }
 
-          .league-stats-leaderboard-row.odd {
-            background-color: $border-color;
+          a {
+            display: inline-block;
+            padding: 1rem;
+            text-align: center;
+            transition: color 250ms ease;
+            width: calc(100% - 2rem);
+
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+
+            &:hover {
+              color: $accent-color;
+            }
           }
 
-          .league-stats-leaderboard-pagination {
+          .active {
+            background-color: $accent-color;
+            border-color: $accent-color;
+
+            a {
+              color: $background-color !important;
+            }
+          }
+        }
+      }
+
+      /* Summoner Page */
+      .league-stats-summoner {
+        margin: 0;
+
+        .league-stats-summoner-info-container {
+          background-color: $border-color;
+          display: flex;
+          justify-content: space-between;
+          padding: 1.5rem;
+
+          .league-stats-summoner-info-basic {
+            align-items: center;
             display: flex;
-            list-style: none;
-            margin: auto auto 0 auto;
-            outline: none;
-            padding: 0.5rem;
-            width: 40rem;
 
-            li {
-              border: solid 1px $accent-color;
-              border-right: solid 0 transparent;
-              cursor: pointer;
-              flex-grow: 1;
-            }
+            .league-stats-summoner-info-image {
+              align-items: center;
+              background-color: $text-color;
+              border: solid 3px $text-color;
+              border-radius: 50%;
+              display: flex;
+              justify-content: center;
+              height: 7.5rem;
+              position: relative;
+              width: 7.5rem;
 
-            li.next,
-            li.previous {
-              text-align: center;
-            }
+              .league-stats-summoner-info-level-container {
+                bottom: -0.75rem;
+                position: absolute;
 
-            li.next {
-              border-radius: 0 6px 6px 0;
-              border-right: solid 1px $accent-color;
-            }
+                .league-stats-summoner-info-level {
+                  background-color: $background-color;
+                  border: solid 2px $text-color;
+                  height: 1.5rem;
+                  margin: 0;
+                  text-align: center;
+                  width: 100%;
 
-            li.previous {
-              border-radius: 6px 0 0 6px;
-            }
+                  &:after,
+                  &:before {
+                    content: "";
+                    position: absolute;
+                    height: 0;
+                    width: 0;
+                    top: 0;
+                    /* half height */
+                    border-top: calc(0.75rem + 2px) solid transparent;
+                    border-bottom: calc(0.75rem + 2px) solid transparent;
+                  }
 
-            li.disabled {
-              cursor: default;
+                  &:after {
+                    right: calc(-0.375rem - 4px);
+                    border-left: 0.375rem solid $text-color;
+                  }
 
-              a {
-                &:hover {
-                  color: $text-color !important;
+                  &:before {
+                    left: -0.375rem;
+                    border-right: 0.375rem solid $text-color;
+                  }
+                }
+
+                .league-stats-summoner-info-level-hex {
+                  &:after,
+                  &:before {
+                    content: "";
+                    position: absolute;
+                    height: 0;
+                    width: 0;
+                    bottom: 2px;
+                    /* half height */
+                    border-top: 0.75rem solid transparent;
+                    border-bottom: 0.75rem solid transparent;
+                  }
+
+                  &:after {
+                    right: calc(-0.375rem - 1px);
+                    border-left: 0.3725rem solid $background-color;
+                  }
+
+                  &:before {
+                    left: calc(-0.375rem + 3px);
+                    border-right: 0.3725rem solid $background-color;
+                  }
                 }
               }
-            }
 
-            a {
-              display: inline-block;
-              padding: 1rem;
-              text-align: center;
-              transition: color 250ms ease;
-              width: calc(100% - 2rem);
-
-              -webkit-user-select: none;
-              -moz-user-select: none;
-              -ms-user-select: none;
-              user-select: none;
-
-              &:hover {
-                color: $accent-color;
+              img {
+                border-radius: inherit;
+                height: inherit;
+                width: inherit;
               }
             }
 
-            .active {
-              background-color: $accent-color;
-              border-color: $accent-color;
+            .league-stats-summoner-info-name {
+              margin-left: 1rem;
+            }
+          }
 
-              a {
-                color: $background-color !important;
+          .league-stats-summoner-info-rank-container {
+            .league-stats-summoner-info-rank {
+              .league-stats-summoner-info-rank-image {
+                height: 7.5rem;
+                width: 7.5rem;
+
+                img {
+                  height: inherit;
+                  width: inherit;
+                }
               }
             }
           }
