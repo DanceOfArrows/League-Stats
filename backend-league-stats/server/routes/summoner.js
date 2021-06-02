@@ -160,7 +160,7 @@ router.get(
           const newSummonerData = {
             name: nameToUse.toLowerCase(),
             data: {
-              nameToUse,
+              name: nameToUse,
               profileIconId,
               summonerLevel,
               matches: matchDataArr,
@@ -173,7 +173,7 @@ router.get(
           res.json(newSummoner.data);
         } else {
           storedSummoner.data = {
-            nameToUse,
+            name: nameToUse,
             profileIconId,
             summonerLevel,
             matches: matchDataArr,
@@ -185,7 +185,6 @@ router.get(
           res.json(storedSummoner.data);
         }
       } else {
-        console.log("in");
         res.json(storedSummoner.data);
       }
     } catch (e) {

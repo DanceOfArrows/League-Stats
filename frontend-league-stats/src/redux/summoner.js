@@ -4,7 +4,11 @@ import { baseUrl } from "./configureStore";
 var LOAD_SUMMONER = "leaguestats/summoner/LOAD_SUMMONER";
 
 /* Action */
-export const setSummoner = (summoner) => ({ type: LOAD_SUMMONER, summoner });
+export const setSummoner = (summonerName, summoner) => ({
+  type: LOAD_SUMMONER,
+  summonerName,
+  summoner,
+});
 
 /* Fetch functions */
 export const getSummoner = (summonerName) => async (dispatch) => {
@@ -14,7 +18,7 @@ export const getSummoner = (summonerName) => async (dispatch) => {
   if (res.ok) {
     const summoner = await res.json();
 
-    dispatch(setSummoner(summoner));
+    dispatch(setSummoner(summonerName, summoner));
   }
 };
 
@@ -26,7 +30,7 @@ export default function reducer(state = {}, action) {
         ...state,
         summoners: {
           ...state.summoners,
-          [action.summoner.name.toLowerCase()]: action.summoner,
+          [action.summonerName.toLowerCase()]: action.summoner,
         },
       };
     }

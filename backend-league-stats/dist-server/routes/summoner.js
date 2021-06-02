@@ -251,7 +251,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             newSummonerData = {
               name: nameToUse.toLowerCase(),
               data: {
-                nameToUse: nameToUse,
+                name: nameToUse,
                 profileIconId: profileIconId,
                 summonerLevel: summonerLevel,
                 matches: matchDataArr,
@@ -270,7 +270,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
 
           case 32:
             storedSummoner.data = {
-              nameToUse: nameToUse,
+              name: nameToUse,
               profileIconId: profileIconId,
               summonerLevel: summonerLevel,
               matches: matchDataArr,
@@ -284,29 +284,28 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             res.json(storedSummoner.data);
 
           case 37:
-            _context3.next = 41;
+            _context3.next = 40;
             break;
 
           case 39:
-            console.log("in");
             res.json(storedSummoner.data);
 
-          case 41:
-            _context3.next = 47;
+          case 40:
+            _context3.next = 46;
             break;
 
-          case 43:
-            _context3.prev = 43;
+          case 42:
+            _context3.prev = 42;
             _context3.t0 = _context3["catch"](0);
             console.error(_context3.t0);
             next(_context3.t0);
 
-          case 47:
+          case 46:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 43]]);
+    }, _callee3, null, [[0, 42]]);
   }));
 
   return function (_x, _x2, _x3) {

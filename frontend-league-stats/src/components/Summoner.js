@@ -16,7 +16,7 @@ const Summoner = (props) => {
   }, [summoners, summonerName, getSummoner]);
 
   let summonerInfo = null;
-  if (summoners) {
+  if (summoners && Object.keys(summoners).length > 0) {
     summonerInfo = summoners[summonerName.toLowerCase()];
     console.log(summonerInfo);
   }
