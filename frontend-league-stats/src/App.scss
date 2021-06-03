@@ -633,6 +633,7 @@ body {
             border: solid 1px $border-color;
             border-radius: 6px;
             box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
+            margin-bottom: 1.5rem;
             padding: 1rem 1.5rem;
             width: 17.5rem;
           }
@@ -650,6 +651,7 @@ body {
               align-items: center;
               display: flex;
               justify-content: space-around;
+              padding-bottom: 0.5rem;
               width: max-content;
 
               .league-stats-summoner-info-image {
