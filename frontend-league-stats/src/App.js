@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import { DefaultToast, ToastProvider } from "react-toast-notifications";
 
 import * as Components from "./components/ExportComponents";
 import "./App.scss";
@@ -7,9 +8,19 @@ import "./App.scss";
 const { ChampionRotation, Home, Leaderboard, Navbar, Sidebar, Summoner } =
   Components;
 
+const CustomToast = ({ children, ...props }) => (
+  <div className="league-stats-toast">
+    <DefaultToast {...props}>{children}</DefaultToast>
+  </div>
+);
+
 const App = () => {
   return (
-    <>
+    <ToastProvider
+      autoDismissTimeout={2500}
+      components={{ Toast: CustomToast }}
+      placement="bottom-center"
+    >
       {/* Top nav */}
       <Navbar />
       <div className="league-stats-background" />
@@ -30,7 +41,7 @@ const App = () => {
           </Switch>
         </div>
       </div>
-    </>
+    </ToastProvider>
   );
 };
 

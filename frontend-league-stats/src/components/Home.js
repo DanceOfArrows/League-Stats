@@ -71,8 +71,9 @@ const Home = (props) => {
             <h2>Search</h2>
             <div className="league-stats-home-section-description">
               Used to search for specific stats of a player with the given name.
-              Some of these stats include league points, level, win rate, and
-              ten most recent matches.
+              Some of these stats include (but not limited to) league points,
+              level, win rate, and ten most recent matches. Clicking on the
+              player's name will copy it to clipboard.
             </div>
           </div>
         </div>
