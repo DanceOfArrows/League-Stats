@@ -469,6 +469,24 @@ const convertChampionIds = async (championIds) => {
   }
 };
 
+/* Convert Summoner IDs to name */
+const summonerIdNameObj = {
+  21: "SummonerBarrier",
+  1: "SummonerBoost",
+  14: "SummonerDot",
+  3: "SummonerExhaust",
+  4: "SummonerFlash",
+  6: "SummonerHaste",
+  7: "SummonerHeal",
+  13: "SummonerMana",
+  30: "SummonerPoroRecall",
+  31: "SummonerPoroThrow",
+  11: "SummonerSmite",
+  39: "SummonerSnowURFSnowball_Mark",
+  32: "SummonerSnowball",
+  12: "SummonerTeleport",
+};
+
 /* Fetch function to prevent repeating of headers */
 const fetchHandler = async (path, isRegionRoute) => {
   const res = !isRegionRoute
@@ -499,5 +517,6 @@ export {
   convertChampionIds,
   fetchHandler,
   queueIdInfo,
+  summonerIdNameObj,
   timeCheck,
 };

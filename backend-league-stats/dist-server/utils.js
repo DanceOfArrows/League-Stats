@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.timeCheck = exports.queueIdInfo = exports.fetchHandler = exports.convertChampionIds = exports.asyncHandler = void 0;
+exports.timeCheck = exports.summonerIdNameObj = exports.queueIdInfo = exports.fetchHandler = exports.convertChampionIds = exports.asyncHandler = void 0;
 
 var _nodeFetch = _interopRequireDefault(require("node-fetch"));
 
@@ -506,10 +506,29 @@ var convertChampionIds = /*#__PURE__*/function () {
     return _ref.apply(this, arguments);
   };
 }();
-/* Fetch function to prevent repeating of headers */
+/* Convert Summoner IDs to name */
 
 
 exports.convertChampionIds = convertChampionIds;
+var summonerIdNameObj = {
+  21: "SummonerBarrier",
+  1: "SummonerBoost",
+  14: "SummonerDot",
+  3: "SummonerExhaust",
+  4: "SummonerFlash",
+  6: "SummonerHaste",
+  7: "SummonerHeal",
+  13: "SummonerMana",
+  30: "SummonerPoroRecall",
+  31: "SummonerPoroThrow",
+  11: "SummonerSmite",
+  39: "SummonerSnowURFSnowball_Mark",
+  32: "SummonerSnowball",
+  12: "SummonerTeleport"
+};
+/* Fetch function to prevent repeating of headers */
+
+exports.summonerIdNameObj = summonerIdNameObj;
 
 var fetchHandler = /*#__PURE__*/function () {
   var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(path, isRegionRoute) {

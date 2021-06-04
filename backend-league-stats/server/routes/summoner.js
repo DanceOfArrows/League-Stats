@@ -7,6 +7,7 @@ import {
   convertChampionIds,
   fetchHandler,
   queueIdInfo,
+  summonerIdNameObj,
   timeCheck,
 } from "../utils";
 
@@ -97,11 +98,12 @@ router.get(
                     ban != null
                       ? await convertChampionIds(ban.championId)
                       : null;
+                  const champion = await convertChampionIds(championId);
 
                   return {
-                    championId,
-                    spell1Id,
-                    spell2Id,
+                    champion,
+                    spell1: summonerIdNameObj[spell1Id],
+                    spell2: summonerIdNameObj[spell2Id],
                     stats,
                     summonerName,
                     bannedChamp,

@@ -122,7 +122,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
                         _context2.next = 13;
                         return Promise.all(participants.map( /*#__PURE__*/function () {
                           var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(participant) {
-                            var participantId, championId, spell1Id, spell2Id, stats, _participantIdentitie, summonerName, ban, bannedChamp;
+                            var participantId, championId, spell1Id, spell2Id, stats, _participantIdentitie, summonerName, ban, bannedChamp, champion;
 
                             return regeneratorRuntime.wrap(function _callee$(_context) {
                               while (1) {
@@ -154,16 +154,21 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
 
                                   case 10:
                                     bannedChamp = _context.t0;
+                                    _context.next = 13;
+                                    return (0, _utils.convertChampionIds)(championId);
+
+                                  case 13:
+                                    champion = _context.sent;
                                     return _context.abrupt("return", {
-                                      championId: championId,
-                                      spell1Id: spell1Id,
-                                      spell2Id: spell2Id,
+                                      champion: champion,
+                                      spell1: _utils.summonerIdNameObj[spell1Id],
+                                      spell2: _utils.summonerIdNameObj[spell2Id],
                                       stats: stats,
                                       summonerName: summonerName,
                                       bannedChamp: bannedChamp
                                     });
 
-                                  case 12:
+                                  case 15:
                                   case "end":
                                     return _context.stop();
                                 }
