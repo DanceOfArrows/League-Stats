@@ -37,7 +37,7 @@ var router = _express["default"].Router();
 
 router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () {
   var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3(req, res, next) {
-    var summonerName, summonerNameEncoded, summonerData, nameToUse, storedSummoner, isUpdateRequired, accountId, id, profileIconId, summonerLevel, summonerMatches, matches, matchDataArr, summonerRanks, ranks, newSummonerData, newSummoner;
+    var summonerName, summonerNameEncoded, summonerData, nameToUse, storedSummoner, isUpdateRequired, accountId, id, profileIconId, summonerLevel, summonerMatches, matchDataArr, matches, summonerRanks, ranks, newSummonerData, newSummoner;
     return regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
@@ -61,7 +61,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             isUpdateRequired = storedSummoner ? (0, _utils.timeCheck)(storedSummoner.lastUpdated) : true;
 
             if (!isUpdateRequired) {
-              _context3.next = 39;
+              _context3.next = 40;
               break;
             }
 
@@ -70,14 +70,22 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             /* Gets 10 recent matches.  This is due to API limitations (can go to 100, but rate limited to 20 per 1 sec and 100 per 2 min) */
 
             _context3.next = 15;
-            return (0, _utils.fetchHandler)("lol/match/v4/matchlists/by-account/".concat(accountId, "?beginIndex=0&endIndex=10"));
+            return (0, _utils.fetchHandler)("lol/match/v4/matchlists/by-account/".concat(accountId, "?beginIndex=0&endIndex=10"))["catch"](function (e) {
+              return console.log(e);
+            });
 
           case 15:
             summonerMatches = _context3.sent;
+
+            if (!summonerMatches) {
+              _context3.next = 21;
+              break;
+            }
+
             matches = summonerMatches.matches;
             /* Get match data for summoner */
 
-            _context3.next = 19;
+            _context3.next = 20;
             return Promise.all(matches.map( /*#__PURE__*/function () {
               var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2(match) {
                 var matchId, timestamp, storedMatch, matchData, gameDuration, participants, participantIdentities, queueId, teams, _queueIdInfo$find, description, map, bans, participantInfoArr, didWin, newMatch;
@@ -122,13 +130,13 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
                         _context2.next = 13;
                         return Promise.all(participants.map( /*#__PURE__*/function () {
                           var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(participant) {
-                            var participantId, championId, spell1Id, spell2Id, stats, _participantIdentitie, summonerName, ban, bannedChamp, champion;
+                            var participantId, championId, spell1Id, spell2Id, stats, teamId, timeline, _participantIdentitie, summonerName, ban, bannedChamp, champion;
 
                             return regeneratorRuntime.wrap(function _callee$(_context) {
                               while (1) {
                                 switch (_context.prev = _context.next) {
                                   case 0:
-                                    participantId = participant.participantId, championId = participant.championId, spell1Id = participant.spell1Id, spell2Id = participant.spell2Id, stats = participant.stats;
+                                    participantId = participant.participantId, championId = participant.championId, spell1Id = participant.spell1Id, spell2Id = participant.spell2Id, stats = participant.stats, teamId = participant.teamId, timeline = participant.timeline;
                                     _participantIdentitie = participantIdentities.find(function (ele) {
                                       return ele.participantId === participantId;
                                     }), summonerName = _participantIdentitie.player.summonerName;
@@ -165,7 +173,10 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
                                       spell2: _utils.summonerIdNameObj[spell2Id],
                                       stats: stats,
                                       summonerName: summonerName,
-                                      bannedChamp: bannedChamp
+                                      teamId: teamId,
+                                      bannedChamp: bannedChamp,
+                                      role: timeline.role,
+                                      lane: timeline.lane
                                     });
 
                                   case 15:
@@ -223,12 +234,14 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
               };
             }()));
 
-          case 19:
+          case 20:
             matchDataArr = _context3.sent;
-            _context3.next = 22;
+
+          case 21:
+            _context3.next = 23;
             return (0, _utils.fetchHandler)("lol/league/v4/entries/by-summoner/".concat(id));
 
-          case 22:
+          case 23:
             summonerRanks = _context3.sent;
             ranks = summonerRanks.map(function (rankType) {
               var queueType = rankType.queueType,
@@ -249,7 +262,7 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
             /* If there isn't a stored summoner, create one.  Else we update */
 
             if (storedSummoner) {
-              _context3.next = 32;
+              _context3.next = 33;
               break;
             }
 
@@ -264,16 +277,16 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
               },
               lastUpdated: new Date()
             };
-            _context3.next = 28;
+            _context3.next = 29;
             return _summoner["default"].create(newSummonerData);
 
-          case 28:
+          case 29:
             newSummoner = _context3.sent;
             res.json(newSummoner.data);
-            _context3.next = 37;
+            _context3.next = 38;
             break;
 
-          case 32:
+          case 33:
             storedSummoner.data = {
               name: nameToUse,
               profileIconId: profileIconId,
@@ -282,35 +295,35 @@ router.get("/:summonerName", (0, _utils.asyncHandler)( /*#__PURE__*/function () 
               ranks: ranks
             };
             storedSummoner.lastUpdated = new Date();
-            _context3.next = 36;
+            _context3.next = 37;
             return storedSummoner.save();
 
-          case 36:
-            res.json(storedSummoner.data);
-
           case 37:
-            _context3.next = 40;
-            break;
-
-          case 39:
             res.json(storedSummoner.data);
+
+          case 38:
+            _context3.next = 41;
+            break;
 
           case 40:
-            _context3.next = 46;
+            res.json(storedSummoner.data);
+
+          case 41:
+            _context3.next = 47;
             break;
 
-          case 42:
-            _context3.prev = 42;
+          case 43:
+            _context3.prev = 43;
             _context3.t0 = _context3["catch"](0);
             console.error(_context3.t0);
             next(_context3.t0);
 
-          case 46:
+          case 47:
           case "end":
             return _context3.stop();
         }
       }
-    }, _callee3, null, [[0, 42]]);
+    }, _callee3, null, [[0, 43]]);
   }));
 
   return function (_x, _x2, _x3) {

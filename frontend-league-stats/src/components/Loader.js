@@ -3,8 +3,9 @@ const Loader = ({ full, size }) => {
     <div
       style={{
         display: "flex",
-        height: "calc(100vh - 4rem)",
+        height: "calc(100vh - 7rem)",
         flexDirection: "column",
+        gridColumn: "1 / 3",
         justifyContent: "center",
         width: "100%",
       }}
