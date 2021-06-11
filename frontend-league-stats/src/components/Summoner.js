@@ -80,73 +80,78 @@ const Summoner = (props) => {
             </div>
 
             <div className="league-stats-summoner-info-ranks">
-              {summonerInfo.ranks.length > 0
-                ? summonerInfo.ranks
-                    .sort((a, b) => {
-                      if (a.queueType.includes("FLEX")) return 1;
-                      else return -1;
-                    })
-                    .map((rankObj) => {
-                      const {
-                        leaguePoints,
-                        losses,
-                        queueType,
-                        rank,
-                        tier,
-                        wins,
-                      } = rankObj;
-                      const tierName =
-                        tier.charAt(0).toUpperCase() +
-                        tier.toLowerCase().slice(1);
-                      const tiersToIgnoreRank = [
-                        "Challenger",
-                        "Grandmaster",
-                        "Master",
-                      ];
-                      const queueTypeDisplay = queueType.includes("FLEX")
-                        ? "Flex"
-                        : "Solo / Duo";
+              {summonerInfo.ranks.length > 0 ? (
+                summonerInfo.ranks
+                  .sort((a, b) => {
+                    if (a.queueType.includes("FLEX")) return 1;
+                    else return -1;
+                  })
+                  .map((rankObj) => {
+                    const {
+                      leaguePoints,
+                      losses,
+                      queueType,
+                      rank,
+                      tier,
+                      wins,
+                    } = rankObj;
+                    const tierName =
+                      tier.charAt(0).toUpperCase() +
+                      tier.toLowerCase().slice(1);
+                    const tiersToIgnoreRank = [
+                      "Challenger",
+                      "Grandmaster",
+                      "Master",
+                    ];
+                    const queueTypeDisplay = queueType.includes("FLEX")
+                      ? "Flex"
+                      : "Solo / Duo";
 
-                      return (
+                    return (
+                      <div
+                        className="league-stats-summoner-info-rank-container"
+                        key={`league-stats-summoner-info-rank-${summonerInfo.name}-${queueType}`}
+                      >
                         <div
-                          className="league-stats-summoner-info-rank-container"
                           key={`league-stats-summoner-info-rank-${summonerInfo.name}-${queueType}`}
+                          className="league-stats-summoner-info-rank"
                         >
-                          <div
-                            key={`league-stats-summoner-info-rank-${summonerInfo.name}-${queueType}`}
-                            className="league-stats-summoner-info-rank"
-                          >
-                            <h2 className="league-stats-summoner-info-rank-type">
-                              {queueTypeDisplay}
-                            </h2>
-                            <div className="league-stats-summoner-info-rank-image">
-                              <img
-                                src={`${s3baseurl}/rank/${tierName}.png`}
-                                alt="Rank Icon"
-                              />
-                            </div>
-                            <div className="league-stats-summoner-info-rank-tier">
-                              {tierName}{" "}
-                              {tiersToIgnoreRank.includes(tierName)
-                                ? ""
-                                : `${rank} `}
-                              ({leaguePoints} LP)
-                            </div>
-                            <div className="league-stats-summoner-info-rank-win-ratio">
-                              <span style={{ color: "green" }}>W</span>: {wins}{" "}
-                              / <span style={{ color: "red" }}>L</span>:{" "}
-                              {losses} (
-                              {(
-                                (wins / (wins + losses)) * 100 +
-                                Number.EPSILON
-                              ).toFixed(2)}
-                              %)
-                            </div>
+                          <h2 className="league-stats-summoner-info-rank-type">
+                            {queueTypeDisplay}
+                          </h2>
+                          <div className="league-stats-summoner-info-rank-image">
+                            <img
+                              src={`${s3baseurl}/rank/${tierName}.png`}
+                              alt="Rank Icon"
+                            />
+                          </div>
+                          <div className="league-stats-summoner-info-rank-tier">
+                            {tierName}{" "}
+                            {tiersToIgnoreRank.includes(tierName)
+                              ? ""
+                              : `${rank} `}
+                            ({leaguePoints} LP)
+                          </div>
+                          <div className="league-stats-summoner-info-rank-win-ratio">
+                            <span style={{ color: "green" }}>W</span>: {wins} /{" "}
+                            <span style={{ color: "red" }}>L</span>: {losses} (
+                            {(
+                              (wins / (wins + losses)) * 100 +
+                              Number.EPSILON
+                            ).toFixed(2)}
+                            %)
                           </div>
                         </div>
-                      );
-                    })
-                : null}
+                      </div>
+                    );
+                  })
+              ) : (
+                <div className="league-stats-summoner-info-rank-container">
+                  <div className="league-stats-summoner-info-rank">
+                    Unranked
+                  </div>
+                </div>
+              )}
             </div>
             <div className="league-stats-summoner-matches">
               {summonerInfo.matches

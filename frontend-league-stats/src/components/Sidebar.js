@@ -22,7 +22,7 @@ const Sidebar = () => {
 
   return (
     <div className="league-stats-sidebar">
-      <nav>
+      <nav className="league-stats-sidebar-nav">
         <NavLink
           className="league-stats-sidebar-item"
           activeClassName="league-stats-sidebar-item-active"
@@ -68,31 +68,34 @@ const Sidebar = () => {
           ></span>
         </div>
       </nav>
-      <div className="league-stats-sidebar-social">
-        <a
-          href="https://github.com/lullofthesea"
-          rel="noreferrer"
-          target="_blank"
-          className="league-stats-sidebar-social-github"
-        >
-          <span
-            className="iconify"
-            data-icon="fa-brands:github-square"
-            data-inline="false"
-          />
-        </a>
-        <a
-          href="https://www.linkedin.com/in/seamus-le-4355041aa/"
-          rel="noreferrer"
-          target="_blank"
-          className="league-stats-sidebar-social-linkedIn"
-        >
-          <span
-            className="iconify"
-            data-icon="brandico:linkedin-rect"
-            data-inline="false"
-          />
-        </a>
+      <div className="league-stats-sidebar-social-container">
+        <div />
+        <div className="league-stats-sidebar-social">
+          <a
+            href="https://github.com/lullofthesea"
+            rel="noreferrer"
+            target="_blank"
+            className="league-stats-sidebar-social-github"
+          >
+            <span
+              className="iconify"
+              data-icon="fa-brands:github-square"
+              data-inline="false"
+            />
+          </a>
+          <a
+            href="https://www.linkedin.com/in/seamus-le-4355041aa/"
+            rel="noreferrer"
+            target="_blank"
+            className="league-stats-sidebar-social-linkedIn"
+          >
+            <span
+              className="iconify"
+              data-icon="brandico:linkedin-rect"
+              data-inline="false"
+            />
+          </a>
+        </div>
       </div>
       <div className="league-stats-sidebar-footer">
         League Stats isn’t endorsed by Riot Games and doesn’t reflect the views

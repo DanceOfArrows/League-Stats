@@ -22,5 +22,7 @@ const configureStore = (initialState) => {
 };
 
 export const baseUrl =
-  process.env.NODE_ENV === "production" ? "" : "http://localhost:8080";
+  process.env.REACT_APP_ENVIRONMENT === "production"
+    ? "https://league-stats-back.herokuapp.com"
+    : "http://localhost:8080";
 export default configureStore;

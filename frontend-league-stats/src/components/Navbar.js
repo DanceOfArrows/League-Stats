@@ -40,10 +40,15 @@ const Navbar = ({ history }) => {
   return (
     <div className="league-stats-navbar-top">
       <nav>
-        <NavLink to="/" className="league-stats-navbar-site-logo">
+        <NavLink
+          to="/"
+          className="league-stats-navbar-site-logo"
+          style={{ display: "flex" }}
+        >
           <img
-            src={"https://13123123123123123123asertetaw4545taw5.com/doge.jpg"}
+            src={process.env.PUBLIC_URL + "/LS.png"}
             alt="Logo"
+            style={{ height: "64px", margin: "0 auto", width: "64px" }}
           />
         </NavLink>
         <div className="league-stats-navbar-top-flexbox">

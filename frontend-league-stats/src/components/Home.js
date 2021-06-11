@@ -66,7 +66,10 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-        <div className="league-stats-home-section">
+        <div
+          className="league-stats-home-section"
+          style={{ borderBottom: "none", paddingBottom: "0" }}
+        >
           <div className="league-stats-home-section-text">
             <h2>Search</h2>
             <div className="league-stats-home-section-description">
