@@ -452,8 +452,19 @@ body {
                 padding: 0.1rem;
               }
 
+              .league-stats-home-section-leaderboard-topFive-player {
+                height: 1.5rem;
+                white-space: nowrap;
+                width: 100%;
+              }
+
               a {
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
                 transition: color 250ms ease;
+                white-space: nowrap;
+                width: 100%;
 
                 &:hover {
                   color: $accent-color;

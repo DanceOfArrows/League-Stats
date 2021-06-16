@@ -52,11 +52,11 @@ const Home = (props) => {
               {topFivePlayers ? (
                 topFivePlayers.map((player, idx) => (
                   <div
+                    className="league-stats-home-section-leaderboard-topFive-player"
                     key={`league-stats-home-leaderboard-${player.summonerName}`}
                   >
-                    <div>{idx + 1}.&thinsp;</div>
                     <NavLink to={`/summoner/${player.summonerName}`}>
-                      {player.summonerName}
+                      {idx + 1}.&thinsp; {player.summonerName}
                     </NavLink>
                   </div>
                 ))
