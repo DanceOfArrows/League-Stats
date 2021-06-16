@@ -894,6 +894,13 @@ body {
               }
             }
           }
+
+          .league-stats-summoner-match.match-win {
+            box-shadow: 1px 1px 6px 0 rgba(163, 207, 236, 1);
+          }
+          .league-stats-summoner-match.match-loss {
+            box-shadow: 1px 1px 6px 0 rgba(226, 182, 179, 1);
+          }
         }
       }
     }

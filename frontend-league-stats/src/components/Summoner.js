@@ -224,7 +224,11 @@ const Summoner = (props) => {
                     return (
                       <div
                         key={`league-stats-match-${summonerInfo.name}-${timestamp}`}
-                        className="league-stats-summoner-match"
+                        className={
+                          didWin
+                            ? "league-stats-summoner-match match-win"
+                            : "league-stats-summoner-match match-loss"
+                        }
                       >
                         <div className="league-stats-summoner-match-data">
                           <div>
@@ -234,9 +238,17 @@ const Summoner = (props) => {
                           </div>
                           <div>{map}</div>
                           <TimeAgo date={timestamp} />
-                          <div>
+                          <div
+                            style={
+                              didWin
+                                ? { color: "rgba(0, 128, 255, 1)" }
+                                : { color: "rgba(255, 0, 0, 1)" }
+                            }
+                          >
                             {didWin ? "Win" : "Loss"}{" "}
-                            {durationHHMMSS(gameDuration)}
+                            <div style={{ display: "inline-block" }}>
+                              {durationHHMMSS(gameDuration)}
+                            </div>
                           </div>
                         </div>
                         <div className="league-stats-summoner-match-summoner">
