@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 
-const Sidebar = () => {
+const Sidebar = ({
+  screenSize,
+  shouldDisplaySidebar,
+  setShouldDisplaySidebar,
+}) => {
   const storedDarkMode = localStorage.getItem("DARK_MODE");
   if (!storedDarkMode) localStorage.setItem("DARK_MODE", false);
   const [darkMode, setDarkMode] = useState(
@@ -21,13 +25,21 @@ const Sidebar = () => {
   }, [darkMode]);
 
   return (
-    <div className="league-stats-sidebar">
+    <div
+      className="league-stats-sidebar"
+      style={
+        (screenSize !== null && screenSize > 480) || shouldDisplaySidebar
+          ? {}
+          : { visibility: "hidden", opacity: 0 }
+      }
+    >
       <nav className="league-stats-sidebar-nav">
         <NavLink
           className="league-stats-sidebar-item"
           activeClassName="league-stats-sidebar-item-active"
           exact
           to="/"
+          onClick={() => setShouldDisplaySidebar(false)}
         >
           Home
         </NavLink>
@@ -35,6 +47,7 @@ const Sidebar = () => {
           className="league-stats-sidebar-item"
           activeClassName="league-stats-sidebar-item-active"
           to="/champion-rotation"
+          onClick={() => setShouldDisplaySidebar(false)}
         >
           Champion Rotation
         </NavLink>
@@ -42,6 +55,7 @@ const Sidebar = () => {
           className="league-stats-sidebar-item"
           activeClassName="league-stats-sidebar-item-active"
           to="/leaderboard"
+          onClick={() => setShouldDisplaySidebar(false)}
         >
           Leaderboard
         </NavLink>

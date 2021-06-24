@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { DefaultToast, ToastProvider } from "react-toast-notifications";
 
@@ -15,6 +15,18 @@ const CustomToast = ({ children, ...props }) => (
 );
 
 const App = () => {
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
+  const [shouldDisplaySidebar, setShouldDisplaySidebar] = useState(null);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => setScreenSize(window.innerWidth));
+
+    return () =>
+      window.removeEventListener("resize", () =>
+        setScreenSize(window.innerWidth)
+      );
+  });
+
   return (
     <ToastProvider
       autoDismissTimeout={2500}
@@ -22,24 +34,43 @@ const App = () => {
       placement="bottom-center"
     >
       {/* Top nav */}
-      <Navbar />
+      <Navbar
+        screenSize={screenSize}
+        shouldDisplaySidebar={shouldDisplaySidebar}
+        setShouldDisplaySidebar={setShouldDisplaySidebar}
+      />
       <div className="league-stats-background" />
       <div className="league-stats-container">
         {/* Side nav */}
-        <Sidebar />
+        <Sidebar
+          screenSize={screenSize}
+          shouldDisplaySidebar={shouldDisplaySidebar}
+          setShouldDisplaySidebar={setShouldDisplaySidebar}
+        />
+
         {/* Page content */}
-        <div className="league-stats-page">
-          <Switch>
-            <Route
-              exact
-              path="/champion-rotation"
-              component={ChampionRotation}
-            />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/leaderboard" component={Leaderboard} />
-            <Route exact path="/summoner/:summonerName" component={Summoner} />
-          </Switch>
-        </div>
+        {shouldDisplaySidebar ? null : (
+          <div className="league-stats-page">
+            <Switch>
+              <Route
+                exact
+                path="/champion-rotation"
+                component={ChampionRotation}
+              />
+              <Route exact path="/" component={Home} />
+              <Route
+                exact
+                path="/leaderboard"
+                render={() => <Leaderboard screenSize={screenSize} />}
+              />
+              <Route
+                exact
+                path="/summoner/:summonerName"
+                component={Summoner}
+              />
+            </Switch>
+          </div>
+        )}
       </div>
     </ToastProvider>
   );

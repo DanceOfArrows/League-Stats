@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { NavLink, withRouter } from "react-router-dom";
 
-const Navbar = ({ history }) => {
+const Navbar = ({
+  history,
+  screenSize,
+  shouldDisplaySidebar,
+  setShouldDisplaySidebar,
+}) => {
   const [shouldDisplaySearch, setShouldDisplaySearch] = useState(false);
   const [summonerSearchName, setSummonerSearchName] = useState("");
 
@@ -40,38 +45,64 @@ const Navbar = ({ history }) => {
   return (
     <div className="league-stats-navbar-top">
       <nav>
-        <NavLink
-          to="/"
-          className="league-stats-navbar-site-logo"
-          style={{ display: "flex" }}
-        >
-          <img
-            src={process.env.PUBLIC_URL + "/LS.png"}
-            alt="Logo"
-            style={{ height: "64px", margin: "0 auto", width: "64px" }}
-          />
-        </NavLink>
+        {screenSize !== null && screenSize > 480 ? (
+          <NavLink to="/" className="league-stats-navbar-site-logo">
+            <img
+              src={process.env.PUBLIC_URL + "/LS.png"}
+              alt="Logo"
+              style={{ height: "64px", margin: "0 auto", width: "64px" }}
+            />
+          </NavLink>
+        ) : null}
+
         <div className="league-stats-navbar-top-flexbox">
-          <NavLink to="/" className="league-stats-navbar-site-name">
+          <NavLink
+            to="/"
+            className="league-stats-navbar-site-name"
+            onClick={() => setShouldDisplaySidebar(false)}
+          >
             <h1>League Stats</h1>
           </NavLink>
-          <div
-            className="league-stats-navbar-site-search"
-            onClick={() =>
-              shouldDisplaySearch
-                ? setShouldDisplaySearch(false)
-                : setShouldDisplaySearch(true)
-            }
-            style={
-              shouldDisplaySearch ? { right: "11.5rem" } : { right: "1rem" }
-            }
-          >
-            <span
-              className="iconify"
-              data-icon="fluent:search-12-regular"
-              data-inline="false"
-            />
-          </div>
+          {screenSize !== null && screenSize > 480 ? (
+            <div
+              key="league-stats-navbar-site-search-icon"
+              className="league-stats-navbar-site-search"
+              onClick={() =>
+                shouldDisplaySearch
+                  ? setShouldDisplaySearch(false)
+                  : setShouldDisplaySearch(true)
+              }
+              style={
+                shouldDisplaySearch ? { right: "11.5rem" } : { right: "1rem" }
+              }
+            >
+              <span
+                className="iconify"
+                data-icon="fluent:search-12-regular"
+                data-inline="false"
+              />
+            </div>
+          ) : (
+            <div
+              key="league-stats-navbar-site-hamburger-icon"
+              className="league-stats-navbar-site-search"
+              onClick={() =>
+                shouldDisplaySidebar
+                  ? setShouldDisplaySidebar(false)
+                  : setShouldDisplaySidebar(true)
+              }
+              style={
+                shouldDisplaySearch ? { right: "11.5rem" } : { right: "1rem" }
+              }
+            >
+              <span
+                className="iconify"
+                data-icon="radix-icons:hamburger-menu"
+                data-inline="false"
+              />
+            </div>
+          )}
+
           {/* Search bar */}
           <div
             className="league-stats-search-bar"

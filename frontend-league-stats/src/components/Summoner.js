@@ -236,7 +236,9 @@ const Summoner = (props) => {
                               ? matchType[description]
                               : description}{" "}
                           </div>
-                          <div>{map}</div>
+                          <div className="league-stats-summoner-match-data-map">
+                            {map}
+                          </div>
                           <TimeAgo date={timestamp} />
                           <div
                             style={
@@ -341,18 +343,41 @@ const Summoner = (props) => {
                                       }
                                 }
                               >
-                                <div className="league-stats-summoner-match-participant-img">
-                                  <img
-                                    src={`${s3baseurl}/champion/${champion.championName}.png`}
-                                    alt={`league-stats-${summonerName}-match-${timestamp}-participant`}
-                                  />
-                                </div>
-                                <NavLink
-                                  to={`/summoner/${summonerName}`}
-                                  className="league-stats-summoner-match-participant-name"
-                                >
-                                  {summonerName}
-                                </NavLink>
+                                {teamId === 100 ? (
+                                  <>
+                                    <NavLink
+                                      to={`/summoner/${summonerName}`}
+                                      className="league-stats-summoner-match-participant-name"
+                                      style={{ textAlign: "right" }}
+                                    >
+                                      {summonerName}
+                                    </NavLink>
+                                    <div
+                                      className="league-stats-summoner-match-participant-img"
+                                      style={{ marginLeft: "0.25rem" }}
+                                    >
+                                      <img
+                                        src={`${s3baseurl}/champion/${champion.championName}.png`}
+                                        alt={`league-stats-${summonerName}-match-${timestamp}-participant`}
+                                      />
+                                    </div>
+                                  </>
+                                ) : (
+                                  <>
+                                    <div className="league-stats-summoner-match-participant-img">
+                                      <img
+                                        src={`${s3baseurl}/champion/${champion.championName}.png`}
+                                        alt={`league-stats-${summonerName}-match-${timestamp}-participant`}
+                                      />
+                                    </div>
+                                    <NavLink
+                                      to={`/summoner/${summonerName}`}
+                                      className="league-stats-summoner-match-participant-name"
+                                    >
+                                      {summonerName}
+                                    </NavLink>
+                                  </>
+                                )}
                               </div>
                             );
                           })}

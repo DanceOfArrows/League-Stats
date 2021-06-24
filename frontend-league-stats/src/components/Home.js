@@ -4,10 +4,18 @@ import { NavLink } from "react-router-dom";
 
 import { getLeaderboard } from "../redux/leaderboard";
 import Loader from "./Loader";
+import LSCRGif from "../images/LS Champion Rotation.gif";
+import LSSGif from "../images/LS Search.gif";
 
 const Home = (props) => {
   const { leaderboard, getLeaderboard } = props;
-  const topFivePlayers = leaderboard ? leaderboard.slice(0, 5) : null;
+  const topFivePlayers = leaderboard
+    ? leaderboard
+        .sort((a, b) => {
+          return a.leaguePoints < b.leaguePoints ? 1 : -1;
+        })
+        .slice(0, 5)
+    : null;
 
   useEffect(() => {
     if (!leaderboard) getLeaderboard();
@@ -29,6 +37,9 @@ const Home = (props) => {
               duration that they are free. Clicking on any of the champion boxes
               will take you to that champion's wiki page.
             </div>
+          </div>
+          <div className="league-stats-home-section-gif-display">
+            <img src={LSCRGif} alt="Champion Rotation Preview" />
           </div>
         </div>
         <div className="league-stats-home-section">
@@ -68,7 +79,10 @@ const Home = (props) => {
         </div>
         <div
           className="league-stats-home-section"
-          style={{ borderBottom: "none", paddingBottom: "0" }}
+          style={{
+            borderBottom: "none",
+            boxShadow: "none",
+          }}
         >
           <div className="league-stats-home-section-text">
             <h2>Search</h2>
@@ -78,6 +92,9 @@ const Home = (props) => {
               level, win rate, and ten most recent matches. Clicking on the
               player's name will copy it to clipboard.
             </div>
+          </div>
+          <div className="league-stats-home-section-gif-display">
+            <img src={LSSGif} alt="Search Preview" />
           </div>
         </div>
       </div>
