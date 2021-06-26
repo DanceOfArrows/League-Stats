@@ -96,6 +96,16 @@ const App = () => {
                 path="/search"
                 render={() => <Search screenSize={screenSize} />}
               />
+              <Route
+                path="*"
+                render={() => (
+                  <div className="league-stats-404 page-container">
+                    <div className="league-stats-404-div">
+                      <h1>This page does not exist!</h1>
+                    </div>
+                  </div>
+                )}
+              />
             </Switch>
           </div>
         )}

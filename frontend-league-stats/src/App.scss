@@ -929,11 +929,17 @@ body {
           }
         }
       }
-    }
-  }
 
-  .league-stats-test-long-div {
-    height: 2600px;
+      .league-stats-404 {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+
+        h1 {
+          color: $accent-color;
+        }
+      }
+    }
   }
 }
 

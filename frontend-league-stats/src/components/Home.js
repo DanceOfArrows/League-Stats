@@ -85,7 +85,11 @@ const Home = (props) => {
           }}
         >
           <div className="league-stats-home-section-text">
-            <h2>Search</h2>
+            <NavLink to="/search">
+              <h2>
+                Search <span>&gt;</span>
+              </h2>
+            </NavLink>
             <div className="league-stats-home-section-description">
               Used to search for specific stats of a player with the given name.
               Some of these stats include (but not limited to) league points,

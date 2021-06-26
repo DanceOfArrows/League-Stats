@@ -16,7 +16,7 @@ const Search = ({ history, screenSize }) => {
 
   return (
     <div
-      className="league-stats-leaderboard page-container"
+      className="league-stats-search page-container"
       style={{ alignItems: "center", justifyContent: "center" }}
     >
       <div
