@@ -33,10 +33,13 @@ app.use(_express["default"].json());
 app.use(_express["default"].urlencoded({
   extended: false
 }));
-app.use((0, _cookieParser["default"])());
-app.use((0, _cors["default"])({
-  origin: true
-}));
+app.use((0, _cookieParser["default"])()); // app.use(cors({ origin: true }));
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 app.use("/championRotation", _championRotation["default"]);
 app.use("/leaderboard", _leaderboard["default"]);
 app.use("/summoner", _summoner["default"]);

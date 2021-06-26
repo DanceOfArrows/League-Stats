@@ -48,10 +48,10 @@ const Summoner = (props) => {
   };
 
   return (
-    <>
+    <React.Fragment>
       <div className="league-stats-summoner page-container">
         {summonerInfo && summonerInfo !== null ? (
-          <>
+          <React.Fragment>
             <div className="league-stats-summoner-info-basic-container">
               <div className="league-stats-summoner-info-player">
                 <div className="league-stats-summoner-info-image">
@@ -344,7 +344,7 @@ const Summoner = (props) => {
                                 }
                               >
                                 {teamId === 100 ? (
-                                  <>
+                                  <React.Fragment>
                                     <NavLink
                                       to={`/summoner/${summonerName}`}
                                       className="league-stats-summoner-match-participant-name"
@@ -361,9 +361,9 @@ const Summoner = (props) => {
                                         alt={`league-stats-${summonerName}-match-${timestamp}-participant`}
                                       />
                                     </div>
-                                  </>
+                                  </React.Fragment>
                                 ) : (
-                                  <>
+                                  <React.Fragment>
                                     <div className="league-stats-summoner-match-participant-img">
                                       <img
                                         src={`${s3baseurl}/champion/${champion.championName}.png`}
@@ -376,7 +376,7 @@ const Summoner = (props) => {
                                     >
                                       {summonerName}
                                     </NavLink>
-                                  </>
+                                  </React.Fragment>
                                 )}
                               </div>
                             );
@@ -387,12 +387,12 @@ const Summoner = (props) => {
                   })
                 : null}
             </div>
-          </>
+          </React.Fragment>
         ) : (
           <Loader full="true" size="5rem" />
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

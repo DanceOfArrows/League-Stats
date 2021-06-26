@@ -14,10 +14,10 @@ const ChampionRotation = (props) => {
   }, [championRotation, getChampionRotation]);
 
   return (
-    <>
+    <React.Fragment>
       <div className="league-stats-champion-rotation page-container">
         {championRotation ? (
-          <>
+          <React.Fragment>
             <div className="league-stats-champion-rotation-box">
               {
                 /* Sorts champion rotation by display name then map */
@@ -90,12 +90,12 @@ const ChampionRotation = (props) => {
                   })
               }
             </div>
-          </>
+          </React.Fragment>
         ) : (
           <Loader full="true" size="5rem" />
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

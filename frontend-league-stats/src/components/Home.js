@@ -22,7 +22,7 @@ const Home = (props) => {
   }, [leaderboard, getLeaderboard]);
 
   return (
-    <>
+    <React.Fragment>
       <div className="league-stats-home page-container">
         <div className="league-stats-home-section">
           <div className="league-stats-home-section-text">
@@ -98,7 +98,7 @@ const Home = (props) => {
           </div>
         </div>
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

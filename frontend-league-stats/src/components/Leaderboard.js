@@ -10,9 +10,6 @@ const Leaderboard = ({ leaderboard, getLeaderboard, screenSize }) => {
   const [page, setPage] = useState(1);
   const rangeToMap = [page * 10 - 10, page * 10 - 1];
 
-  console.log(screenSize);
-  console.log(screenSize !== null && screenSize > 480);
-
   useEffect(() => {
     if (!leaderboard) getLeaderboard();
 
@@ -48,10 +45,10 @@ const Leaderboard = ({ leaderboard, getLeaderboard, screenSize }) => {
   }, [leaderboard, getLeaderboard, page]);
 
   return (
-    <>
+    <React.Fragment>
       <div className="league-stats-leaderboard page-container">
         {leaderboard ? (
-          <>
+          <React.Fragment>
             <div
               className="league-stats-leaderboard-row"
               // style={{ flexGrow: 0 }}
@@ -128,12 +125,12 @@ const Leaderboard = ({ leaderboard, getLeaderboard, screenSize }) => {
                 onPageChange={(e) => setPage(e.selected + 1)}
               />
             )}
-          </>
+          </React.Fragment>
         ) : (
           <Loader full="true" size="5rem" />
         )}
       </div>
-    </>
+    </React.Fragment>
   );
 };
 

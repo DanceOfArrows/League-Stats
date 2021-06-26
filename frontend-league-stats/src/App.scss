@@ -14,6 +14,10 @@ $dark-text-color: #ffffff;
 $dark-background-color: #000000;
 $dark-border-color: #414141;
 
+// * {
+//   -webkit-transform: translate3d(0, 0, 0);
+// }
+
 /* Site wide style */
 * {
   font-family: "KoHo";
@@ -95,20 +99,57 @@ body {
     animation: spin 2s linear infinite;
   }
 
+  .league-stats-search-bar {
+    position: absolute;
+    right: 1rem;
+    transition: all 200ms ease;
+
+    .league-stats-search-input {
+      background-color: $border-color;
+      border: none;
+      border-radius: 4px;
+      box-sizing: border-box;
+      color: $text-color;
+      outline: none;
+      padding: 8px 42px 8px 14px;
+      position: relative;
+      width: 100%;
+    }
+
+    .league-stats-search-button {
+      border: none;
+      border-radius: 0 4px 4px 0;
+      background-color: $text-color;
+      cursor: pointer;
+      height: 100%;
+      position: absolute;
+      right: 0;
+      top: 0;
+
+      svg {
+        color: $border-color;
+      }
+    }
+  }
+
   .league-stats-background {
     background-color: $border-color;
     height: 100%;
     position: fixed;
+    transform: translateZ(-1);
     width: 100%;
     z-index: -1;
+    -webkit-transform: translateZ(-1);
   }
 
   /* Navbar Styling */
   .league-stats-navbar-top {
     height: 4rem;
     position: fixed;
+    transform: translateZ(2);
     width: 100%;
     z-index: 2;
+    -webkit-transform: translateZ(2);
 
     nav {
       background-color: $primary-color;
@@ -144,39 +185,6 @@ body {
             width: inherit;
           }
         }
-
-        .league-stats-search-bar {
-          position: absolute;
-          right: 1rem;
-          transition: all 200ms ease;
-
-          .league-stats-search-input {
-            background-color: $border-color;
-            border: none;
-            border-radius: 4px;
-            box-sizing: border-box;
-            color: $text-color;
-            outline: none;
-            padding: 8px 42px 8px 14px;
-            position: relative;
-            width: 100%;
-          }
-
-          .league-stats-search-button {
-            border: none;
-            border-radius: 0 4px 4px 0;
-            background-color: $text-color;
-            cursor: pointer;
-            height: 100%;
-            position: absolute;
-            right: 0;
-            top: 0;
-
-            svg {
-              color: $border-color;
-            }
-          }
-        }
       }
 
       .league-stats-navbar-site-logo {
@@ -197,12 +205,13 @@ body {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.05), 0 0 10px rgba(0, 0, 0, 0.05);
       display: grid;
       grid-template: 1fr 25% 25% / 1fr;
-      height: 94vh;
       margin-right: auto;
-      position: fixed;
+      position: absolute;
       top: 4rem;
+      transform: translateZ(1);
       width: 240px;
       z-index: 1;
+      -webkit-transform: translateZ(1);
 
       nav,
       .league-stats-sidebar-social {
@@ -357,7 +366,7 @@ body {
         flex-direction: column;
         font-size: 0.9rem;
         justify-content: flex-start;
-        padding: 1em 2em;
+        padding: 0 2rem;
       }
     }
 
@@ -370,8 +379,10 @@ body {
       min-height: calc(100vh - 4rem);
       overflow-x: hidden;
       position: relative;
+      transform: translateZ(-1);
       width: calc(100% - 240px);
       z-index: -1;
+      -webkit-transform: translateZ(-1);
 
       .page-container {
         margin: 0;
@@ -953,6 +964,21 @@ body.dark {
     border-top: 16px solid $dark-accent-color; /* Blue */
   }
 
+  .league-stats-search-bar {
+    .league-stats-search-input {
+      background-color: $dark-border-color;
+      color: $dark-text-color;
+    }
+
+    .league-stats-search-button {
+      background-color: $dark-text-color;
+
+      svg {
+        color: $dark-border-color;
+      }
+    }
+  }
+
   .league-stats-background {
     background-color: #111111;
   }
@@ -973,21 +999,6 @@ body.dark {
         .league-stats-navbar-site-name {
           color: $dark-accent-color;
         }
-
-        .league-stats-search-bar {
-          .league-stats-search-input {
-            background-color: $dark-border-color;
-            color: $dark-text-color;
-          }
-
-          .league-stats-search-button {
-            background-color: $dark-text-color;
-
-            svg {
-              color: $dark-border-color;
-            }
-          }
-        }
       }
     }
   }
@@ -997,12 +1008,7 @@ body.dark {
     .league-stats-sidebar {
       background-color: $dark-secondary-color;
       border-left: solid 1px $dark-border-color;
-
-      .league-stats-sidebar-nav,
-      .league-stats-sidebar-social-container,
-      .league-stats-sidebar-footer {
-        border-right: solid 1px $dark-border-color;
-      }
+      border-right: solid 1px $dark-border-color;
 
       nav,
       .league-stats-sidebar-social {
@@ -1280,6 +1286,9 @@ body.dark {
       .league-stats-page {
         border-right: none !important;
         width: 100vw;
+        transform: translateZ(0);
+        z-index: 0;
+        -webkit-transform: translateZ(0);
 
         .page-container {
           height: max-content;

@@ -5,12 +5,15 @@ const Sidebar = ({
   screenSize,
   shouldDisplaySidebar,
   setShouldDisplaySidebar,
+  statusBarHeight,
 }) => {
   const storedDarkMode = localStorage.getItem("DARK_MODE");
   if (!storedDarkMode) localStorage.setItem("DARK_MODE", false);
   const [darkMode, setDarkMode] = useState(
     JSON.parse(localStorage.getItem("DARK_MODE"))
   );
+  let dynamicHeight = "calc(100% - 4rem - " + statusBarHeight + "px)";
+  console.log(dynamicHeight);
 
   useEffect(() => {
     if (darkMode) {
@@ -24,12 +27,14 @@ const Sidebar = ({
     localStorage.setItem("DARK_MODE", darkMode);
   }, [darkMode]);
 
+  console.log(statusBarHeight);
+
   return (
     <div
       className="league-stats-sidebar"
       style={
         (screenSize !== null && screenSize > 480) || shouldDisplaySidebar
-          ? {}
+          ? { height: dynamicHeight, overflow: "auto" }
           : { visibility: "hidden", opacity: 0 }
       }
     >
@@ -58,6 +63,14 @@ const Sidebar = ({
           onClick={() => setShouldDisplaySidebar(false)}
         >
           Leaderboard
+        </NavLink>
+        <NavLink
+          className="league-stats-sidebar-item"
+          activeClassName="league-stats-sidebar-item-active"
+          to="/search"
+          onClick={() => setShouldDisplaySidebar(false)}
+        >
+          Search
         </NavLink>
         <div className="league-stats-light-switch-container">
           <span
