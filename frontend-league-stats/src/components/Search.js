@@ -17,7 +17,12 @@ const Search = ({ history, screenSize }) => {
   return (
     <div
       className="league-stats-search page-container"
-      style={{ alignItems: "center", justifyContent: "center" }}
+      style={{
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+      }}
     >
       <div
         style={screenSize > 480 ? {} : { height: "7.5rem", width: "7.5rem" }}
