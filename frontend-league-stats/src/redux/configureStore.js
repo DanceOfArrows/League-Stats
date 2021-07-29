@@ -24,5 +24,5 @@ const configureStore = (initialState) => {
 export const baseUrl =
   process.env.REACT_APP_ENVIRONMENT === "production"
     ? "https://league-stats-back.herokuapp.com"
-    : "https://ef3e6cfa11f7.ngrok.io";
+    : "http://localhost:8080";
 export default configureStore;

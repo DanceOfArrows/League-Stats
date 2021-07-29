@@ -414,6 +414,11 @@ const queueIdInfo = [
     map: "Summoner's Rift",
     description: "Tutorial 3",
   },
+  {
+    queueId: 1400,
+    map: "Summoner's Rift",
+    description: "Ultimate Spellbook",
+  },
 ];
 
 /* Middleware to handle exceptions */

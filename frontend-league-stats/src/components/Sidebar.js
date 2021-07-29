@@ -34,7 +34,7 @@ const Sidebar = ({
       className="league-stats-sidebar"
       style={
         (screenSize !== null && screenSize > 480) || shouldDisplaySidebar
-          ? { height: dynamicHeight, overflow: "auto" }
+          ? { height: dynamicHeight, overflow: "hidden" }
           : { visibility: "hidden", opacity: 0 }
       }
     >
@@ -124,12 +124,14 @@ const Sidebar = ({
           </a>
         </div>
       </div>
-      <div className="league-stats-sidebar-footer">
-        League Stats isn’t endorsed by Riot Games and doesn’t reflect the views
-        or opinions of Riot Games or anyone officially involved in producing or
-        managing League of Legends. League of Legends and Riot Games are
-        trademarks or registered trademarks of Riot Games, Inc. League of
-        Legends © Riot Games, Inc.
+      <div>
+        <div className="league-stats-sidebar-footer">
+          League Stats isn’t endorsed by Riot Games and doesn’t reflect the
+          views or opinions of Riot Games or anyone officially involved in
+          producing or managing League of Legends. League of Legends and Riot
+          Games are trademarks or registered trademarks of Riot Games, Inc.
+          League of Legends © Riot Games, Inc.
+        </div>
       </div>
     </div>
   );

@@ -90,6 +90,13 @@ body {
     vertical-align: middle;
   }
 
+  .league-stats-summoner-match-no-item {
+    background-color: $border-color;
+    border-radius: 0.25rem;
+    height: 1.75rem;
+    width: 1.75rem;
+  }
+
   /* Loader Styling */
   .league-stats-loader {
     border: 16px solid $border-color; /* Light grey */
@@ -204,9 +211,10 @@ body {
       background-color: $secondary-color;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.05), 0 0 10px rgba(0, 0, 0, 0.05);
       display: grid;
-      grid-template: 1fr 25% 25% / 1fr;
+      grid-template: 50% 1fr 1fr / 1fr;
       margin-right: auto;
-      position: absolute;
+      overflow: hidden;
+      position: fixed;
       top: 4rem;
       transform: translateZ(1);
       width: 240px;
@@ -366,7 +374,7 @@ body {
         flex-direction: column;
         font-size: 0.9rem;
         justify-content: flex-start;
-        padding: 0 2rem;
+        padding: 2rem;
       }
     }
 
@@ -845,6 +853,18 @@ body {
                 img {
                   margin: 0.1rem;
                 }
+
+                .league-stats-summoner-match-no-spell {
+                  background-color: $border-color;
+                }
+              }
+
+              .league-stats-summoner-match-no-spell {
+                border-radius: 0.25rem;
+                height: 1.5rem;
+                width: 1.5rem;
+
+                margin: 0.1rem;
               }
             }
 
@@ -873,9 +893,6 @@ body {
 
               .league-stats-summoner-match-no-item {
                 background-color: $border-color;
-                border-radius: 0.25rem;
-                height: 1.75rem;
-                width: 1.75rem;
               }
             }
 
@@ -1232,12 +1249,6 @@ body.dark {
             border: solid 1px $dark-border-color;
             box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.1);
 
-            .league-stats-summoner-match-items {
-              .league-stats-summoner-match-no-item {
-                background-color: $dark-border-color;
-              }
-            }
-
             .league-stats-summoner-match-participants {
               .league-stats-summoner-match-participant {
                 .league-stats-summoner-match-participant-img {
@@ -1249,6 +1260,18 @@ body.dark {
                     color: $dark-accent-color;
                   }
                 }
+              }
+            }
+
+            .league-stats-summoner-match-spells {
+              .league-stats-summoner-match-no-spell {
+                background-color: $dark-border-color;
+              }
+            }
+
+            .league-stats-summoner-match-items {
+              .league-stats-summoner-match-no-item {
+                background-color: $dark-border-color;
               }
             }
           }

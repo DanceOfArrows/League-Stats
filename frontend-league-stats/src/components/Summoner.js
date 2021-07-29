@@ -261,14 +261,29 @@ const Summoner = (props) => {
                             />
                           </div>
                           <div className="league-stats-summoner-match-spells">
-                            <img
-                              src={`${s3baseurl}/summonerspell/${spell1}.png`}
-                              alt={`league-stats-${summonerName}-match-${timestamp}-displaySum-${spell1}`}
-                            />
-                            <img
-                              src={`${s3baseurl}/summonerspell/${spell2}.png`}
-                              alt={`league-stats-${summonerName}-match-${timestamp}-displaySum-${spell2}`}
-                            />
+                            {spell1 ? (
+                              <img
+                                src={`${s3baseurl}/summonerspell/${spell1}.png`}
+                                alt={`league-stats-${summonerName}-match-${timestamp}-displaySum-${spell1}`}
+                              />
+                            ) : (
+                              <div
+                                key={`league-stats-${summonerName}-match-${timestamp}-displaySum-${spell1}`}
+                                className="league-stats-summoner-match-no-spell"
+                              />
+                            )}
+
+                            {spell2 ? (
+                              <img
+                                src={`${s3baseurl}/summonerspell/${spell2}.png`}
+                                alt={`league-stats-${summonerName}-match-${timestamp}-displaySum-${spell2}`}
+                              />
+                            ) : (
+                              <div
+                                key={`league-stats-${summonerName}-match-${timestamp}-displaySum-${spell2}`}
+                                className="league-stats-summoner-match-no-spell"
+                              />
+                            )}
                           </div>
                         </div>
                         <div className="league-stats-summoner-match-stats">
