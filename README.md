@@ -1,5 +1,5 @@
 # League Stats
-*By Seamus Le - [Visit League Stats]()*
+*By Seamus Le - [Visit League Stats](https://league-stats-front.herokuapp.com)*
 
 **Table of Contents**
 * [League Stats Overview](#qwerty-shop-overview)
